@@ -22,7 +22,7 @@ public struct ChannelOrderLineRequest: Codable {
     }
     public var channelProductNo: String
     public var quantity: Int
-    /** The value of a single unit of the ordered product including VAT  (in the tenant&#39;s base currency calculated using the exchange rate at the time of ordering). */
+    /** The value of a single unit of the ordered product including VAT  (in the shop&#39;s base currency calculated using the exchange rate at the time of ordering). */
     public var unitPriceInclVat: Double
     /** A fixed fee that is charged by the Channel for this orderline.  This field is optional, send 0 if not applicable. */
     public var feeFixed: Double?

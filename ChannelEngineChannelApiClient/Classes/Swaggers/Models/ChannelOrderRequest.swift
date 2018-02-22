@@ -20,7 +20,7 @@ public struct ChannelOrderRequest: Codable {
     public var companyRegistrationNo: String?
     public var vatNo: String?
     public var paymentMethod: String
-    /** The shipping fee including VAT  (in the tenant&#39;s base currency calculated using the exchange rate at the time of ordering). */
+    /** The shipping fee including VAT  (in the shop&#39;s base currency calculated using the exchange rate at the time of ordering). */
     public var shippingCostsInclVat: Double
     public var currencyCode: String
     public var orderDate: Date
