@@ -25,9 +25,11 @@ public struct Address: Codable {
     public var houseNrAddition: String?
     public var zipCode: String?
     public var city: String?
+    /** Optional. State/province/region */
     public var region: String?
     /** For example: NL, BE, FR */
     public var countryIso: String?
+    /** Optional. The address as a single string: use in case the address lines are entered  as single lines and later parsed into street, house number and house number addition. */
     public var original: String?
 
 

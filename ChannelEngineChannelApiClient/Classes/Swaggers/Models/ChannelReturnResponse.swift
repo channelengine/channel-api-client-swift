@@ -14,6 +14,8 @@ public struct ChannelReturnResponse: Codable {
     public enum Reason: String, Codable { 
         case productDefect = "PRODUCT_DEFECT"
         case productUnsatisfactory = "PRODUCT_UNSATISFACTORY"
+        case wrongProduct = "WRONG_PRODUCT"
+        case tooManyProducts = "TOO_MANY_PRODUCTS"
         case refused = "REFUSED"
         case refusedDamaged = "REFUSED_DAMAGED"
         case wrongAddress = "WRONG_ADDRESS"

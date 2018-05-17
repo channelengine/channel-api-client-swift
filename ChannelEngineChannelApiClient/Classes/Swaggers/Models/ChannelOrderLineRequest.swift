@@ -22,6 +22,8 @@ public struct ChannelOrderLineRequest: Codable {
     }
     public var channelProductNo: String
     public var quantity: Int
+    /** The number of items for which cancellation was requested by the customer.  Some channels allow a customer to cancel an order until it has been shipped.  When an order has already been acknowledged in ChannelEngine, it can only be cancelled by creating a cancellation.  Use this field to check whether it is still possible to cancel the order. If this is the case, submit a cancellation to ChannelEngine */
+    public var cancellationRequestedQuantity: Int
     /** The value of a single unit of the ordered product including VAT  (in the shop&#39;s base currency calculated using the exchange rate at the time of ordering). */
     public var unitPriceInclVat: Double
     /** A fixed fee that is charged by the Channel for this orderline.  This field is optional, send 0 if not applicable. */
@@ -35,6 +37,7 @@ public struct ChannelOrderLineRequest: Codable {
     public enum CodingKeys: String, CodingKey { 
         case channelProductNo = "ChannelProductNo"
         case quantity = "Quantity"
+        case cancellationRequestedQuantity = "CancellationRequestedQuantity"
         case unitPriceInclVat = "UnitPriceInclVat"
         case feeFixed = "FeeFixed"
         case feeRate = "FeeRate"

@@ -17,7 +17,9 @@ public struct ChannelOrderRequest: Codable {
     public var lines: [ChannelOrderLineRequest]
     public var phone: String?
     public var email: String
+    /** Optional. A company&#39;s chamber of commerce number */
     public var companyRegistrationNo: String?
+    /** Optional. A company&#39;s VAT number */
     public var vatNo: String?
     public var paymentMethod: String
     /** The shipping fee including VAT  (in the shop&#39;s base currency calculated using the exchange rate at the time of ordering). */
