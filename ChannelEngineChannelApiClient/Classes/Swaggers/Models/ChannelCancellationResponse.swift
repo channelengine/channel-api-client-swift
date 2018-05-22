@@ -11,15 +11,25 @@ import Foundation
 
 public struct ChannelCancellationResponse: Codable {
 
+    public enum ReasonCode: String, Codable { 
+        case notInStock = "NOT_IN_STOCK"
+        case damaged = "DAMAGED"
+        case incomplete = "INCOMPLETE"
+        case clientCancelled = "CLIENT_CANCELLED"
+        case invalidAddress = "INVALID_ADDRESS"
+        case other = "OTHER"
+    }
     public var channelOrderNo: String
     public var lines: [ChannelCancellationLineResponse]
     public var reason: String?
+    public var reasonCode: ReasonCode?
 
 
     public enum CodingKeys: String, CodingKey { 
         case channelOrderNo = "ChannelOrderNo"
         case lines = "Lines"
         case reason = "Reason"
+        case reasonCode = "ReasonCode"
     }
 
 

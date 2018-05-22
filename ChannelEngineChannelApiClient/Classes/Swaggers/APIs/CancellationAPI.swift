@@ -39,6 +39,7 @@ open class CancellationAPI {
   },
   "Content" : [ {
     "ChannelOrderNo" : "ChannelOrderNo",
+    "ReasonCode" : "NOT_IN_STOCK",
     "Reason" : "Reason",
     "Lines" : [ {
       "Quantity" : 0,
@@ -49,6 +50,7 @@ open class CancellationAPI {
     } ]
   }, {
     "ChannelOrderNo" : "ChannelOrderNo",
+    "ReasonCode" : "NOT_IN_STOCK",
     "Reason" : "Reason",
     "Lines" : [ {
       "Quantity" : 0,
