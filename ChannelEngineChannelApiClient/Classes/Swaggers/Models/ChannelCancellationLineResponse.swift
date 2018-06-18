@@ -11,7 +11,9 @@ import Foundation
 
 public struct ChannelCancellationLineResponse: Codable {
 
+    /** The unique product reference used by the Channel */
     public var channelProductNo: String
+    /** Quantity of the product to cancel */
     public var quantity: Int
 
 

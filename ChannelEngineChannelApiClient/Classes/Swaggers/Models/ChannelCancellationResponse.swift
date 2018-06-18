@@ -19,9 +19,12 @@ public struct ChannelCancellationResponse: Codable {
         case invalidAddress = "INVALID_ADDRESS"
         case other = "OTHER"
     }
+    /** The unique order reference used by the Channel */
     public var channelOrderNo: String
     public var lines: [ChannelCancellationLineResponse]
+    /** Reason for cancellation (text) */
     public var reason: String?
+    /** Reason code for cancellation */
     public var reasonCode: ReasonCode?
 
 

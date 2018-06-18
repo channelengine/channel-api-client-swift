@@ -11,10 +11,14 @@ import Foundation
 
 public struct ChannelShipmentResponse: Codable {
 
+    /** The unique order reference used by the Channel */
     public var channelOrderNo: String
     public var lines: [ChannelShipmentLineResponse]
+    /** The unique shipping reference used by the Shipping carrier (track&amp;amp;trace number) */
     public var trackTraceNo: String?
+    /** A link to a page of the carrier where the customer can track the shipping of her package. */
     public var trackTraceUrl: String?
+    /** Shipment method (carrier) */
     public var method: String?
 
 

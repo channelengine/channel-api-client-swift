@@ -17,9 +17,13 @@ public struct ExtraDataItem: Codable {
         case url = "URL"
         case imageurl = "IMAGEURL"
     }
+    /** Name of the extra data field */
     public var key: String?
+    /** Value of the extra data field */
     public var value: String?
+    /** Type of the extra data field */
     public var type: ModelType?
+    /** Add this field to the export of the product feed to the channel */
     public var isPublic: Bool?
 
 

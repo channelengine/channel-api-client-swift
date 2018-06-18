@@ -20,7 +20,9 @@ public struct ChannelOrderLineRequest: Codable {
         case usedMediocre = "USED_MEDIOCRE"
         case unknown = "UNKNOWN"
     }
+    /** The unique order reference used by the channel */
     public var channelProductNo: String
+    /** The number of items of the product */
     public var quantity: Int
     /** The number of items for which cancellation was requested by the customer.  Some channels allow a customer to cancel an order until it has been shipped.  When an order has already been acknowledged in ChannelEngine, it can only be cancelled by creating a cancellation.  Use this field to check whether it is still possible to cancel the order. If this is the case, submit a cancellation to ChannelEngine */
     public var cancellationRequestedQuantity: Int

@@ -11,6 +11,7 @@ import Foundation
 
 public struct ChannelOfferResponse: Codable {
 
+    /** The unique product reference used by the Channel */
     public var channelProductNo: String?
     public var price: Double?
     public var stock: Int?

@@ -16,14 +16,23 @@ public struct Address: Codable {
         case female = "FEMALE"
         case notApplicable = "NOT_APPLICABLE"
     }
+    /** Optional. The customer&#39;s gender */
     public var gender: Gender?
+    /** Optional. Company addressed too. */
     public var companyName: String?
+    /** The first name of the customer */
     public var firstName: String?
+    /** The last name of the customer (includes the surname prefix [tussenvoegsel] like &#39;de&#39;, &#39;van&#39;, &#39;du&#39;) */
     public var lastName: String?
+    /** The name of the street (without house number information) */
     public var streetName: String?
+    /** The house number */
     public var houseNr: String?
+    /** Optional. Addition to the house number  If the address is: Groenhazengracht 2c, the address will be:  StreetName: Groenhazengracht  HouseNo: 2  HouseNrAddition: c */
     public var houseNrAddition: String?
+    /** The zip or postal code */
     public var zipCode: String?
+    /** The name of the city */
     public var city: String?
     /** Optional. State/province/region */
     public var region: String?

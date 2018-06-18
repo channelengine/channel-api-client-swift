@@ -11,7 +11,9 @@ import Foundation
 
 public struct ChannelReturnLineRequest: Codable {
 
+    /** The unique product reference used by the Channel */
     public var channelProductNo: String
+    /** Number of items of the product in this return */
     public var quantity: Int
 
 
