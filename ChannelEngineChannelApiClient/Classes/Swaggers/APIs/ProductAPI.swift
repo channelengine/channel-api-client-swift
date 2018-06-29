@@ -130,10 +130,10 @@ open class ProductAPI {
   },
   "Content" : {
     "ToBeUpdated" : [ {
-      "MSRP" : 5.962133916683182,
+      "MSRP" : 5.962133916683182377482808078639209270477294921875,
       "Description" : "Description",
       "Size" : "Size",
-      "PurchasePrice" : 5.637376656633329,
+      "PurchasePrice" : 5.63737665663332876420099637471139430999755859375,
       "Url" : "Url",
       "Name" : "Name",
       "VatRateType" : "STANDARD",
@@ -164,8 +164,8 @@ open class ProductAPI {
       "MappedFields" : {
         "key" : "MappedFields"
       },
-      "Price" : 1.4658129805029452,
-      "ShippingCost" : 2.3021358869347655,
+      "Price" : 1.46581298050294517310021547018550336360931396484375,
+      "ShippingCost" : 2.3021358869347654518833223846741020679473876953125,
       "ExtraImageUrl3" : "ExtraImageUrl3",
       "ExtraImageUrl2" : "ExtraImageUrl2",
       "ExtraImageUrl1" : "ExtraImageUrl1",
@@ -173,10 +173,10 @@ open class ProductAPI {
       "CategoryTrail" : "CategoryTrail",
       "Stock" : 6
     }, {
-      "MSRP" : 5.962133916683182,
+      "MSRP" : 5.962133916683182377482808078639209270477294921875,
       "Description" : "Description",
       "Size" : "Size",
-      "PurchasePrice" : 5.637376656633329,
+      "PurchasePrice" : 5.63737665663332876420099637471139430999755859375,
       "Url" : "Url",
       "Name" : "Name",
       "VatRateType" : "STANDARD",
@@ -207,8 +207,8 @@ open class ProductAPI {
       "MappedFields" : {
         "key" : "MappedFields"
       },
-      "Price" : 1.4658129805029452,
-      "ShippingCost" : 2.3021358869347655,
+      "Price" : 1.46581298050294517310021547018550336360931396484375,
+      "ShippingCost" : 2.3021358869347654518833223846741020679473876953125,
       "ExtraImageUrl3" : "ExtraImageUrl3",
       "ExtraImageUrl2" : "ExtraImageUrl2",
       "ExtraImageUrl1" : "ExtraImageUrl1",
@@ -218,10 +218,10 @@ open class ProductAPI {
     } ],
     "ToBeRemoved" : [ "ToBeRemoved", "ToBeRemoved" ],
     "ToBeCreated" : [ {
-      "MSRP" : 5.962133916683182,
+      "MSRP" : 5.962133916683182377482808078639209270477294921875,
       "Description" : "Description",
       "Size" : "Size",
-      "PurchasePrice" : 5.637376656633329,
+      "PurchasePrice" : 5.63737665663332876420099637471139430999755859375,
       "Url" : "Url",
       "Name" : "Name",
       "VatRateType" : "STANDARD",
@@ -252,8 +252,8 @@ open class ProductAPI {
       "MappedFields" : {
         "key" : "MappedFields"
       },
-      "Price" : 1.4658129805029452,
-      "ShippingCost" : 2.3021358869347655,
+      "Price" : 1.46581298050294517310021547018550336360931396484375,
+      "ShippingCost" : 2.3021358869347654518833223846741020679473876953125,
       "ExtraImageUrl3" : "ExtraImageUrl3",
       "ExtraImageUrl2" : "ExtraImageUrl2",
       "ExtraImageUrl1" : "ExtraImageUrl1",
@@ -261,10 +261,10 @@ open class ProductAPI {
       "CategoryTrail" : "CategoryTrail",
       "Stock" : 6
     }, {
-      "MSRP" : 5.962133916683182,
+      "MSRP" : 5.962133916683182377482808078639209270477294921875,
       "Description" : "Description",
       "Size" : "Size",
-      "PurchasePrice" : 5.637376656633329,
+      "PurchasePrice" : 5.63737665663332876420099637471139430999755859375,
       "Url" : "Url",
       "Name" : "Name",
       "VatRateType" : "STANDARD",
@@ -295,8 +295,8 @@ open class ProductAPI {
       "MappedFields" : {
         "key" : "MappedFields"
       },
-      "Price" : 1.4658129805029452,
-      "ShippingCost" : 2.3021358869347655,
+      "Price" : 1.46581298050294517310021547018550336360931396484375,
+      "ShippingCost" : 2.3021358869347654518833223846741020679473876953125,
       "ExtraImageUrl3" : "ExtraImageUrl3",
       "ExtraImageUrl2" : "ExtraImageUrl2",
       "ExtraImageUrl1" : "ExtraImageUrl1",
@@ -355,11 +355,11 @@ open class ProductAPI {
     "key" : [ "ValidationErrors", "ValidationErrors" ]
   },
   "Content" : [ {
-    "Price" : 0.8008281904610115,
+    "Price" : 0.80082819046101150206595775671303272247314453125,
     "Stock" : 6,
     "ChannelProductNo" : "ChannelProductNo"
   }, {
-    "Price" : 0.8008281904610115,
+    "Price" : 0.80082819046101150206595775671303272247314453125,
     "Stock" : 6,
     "ChannelProductNo" : "ChannelProductNo"
   } ],
