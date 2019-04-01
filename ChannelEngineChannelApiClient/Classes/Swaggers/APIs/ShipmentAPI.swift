@@ -14,10 +14,10 @@ open class ShipmentAPI {
     /**
      Get Shipments
      
-     - parameter createdSince: (query)  
+     - parameter createdSince: (query)  (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func shipmentIndex(createdSince: Date, completion: @escaping ((_ data: CollectionOfChannelShipmentResponse?,_ error: Error?) -> Void)) {
+    open class func shipmentIndex(createdSince: Date? = nil, completion: @escaping ((_ data: CollectionOfChannelShipmentResponse?,_ error: Error?) -> Void)) {
         shipmentIndexWithRequestBuilder(createdSince: createdSince).execute { (response, error) -> Void in
             completion(response?.body, error);
         }
@@ -40,8 +40,10 @@ open class ShipmentAPI {
   "Content" : [ {
     "ChannelOrderNo" : "ChannelOrderNo",
     "TrackTraceUrl" : "TrackTraceUrl",
+    "CreatedAt" : "2000-01-23T04:56:07.000+00:00",
     "TrackTraceNo" : "TrackTraceNo",
     "Method" : "Method",
+    "UpdatedAt" : "2000-01-23T04:56:07.000+00:00",
     "Lines" : [ {
       "Quantity" : 0,
       "ChannelProductNo" : "ChannelProductNo"
@@ -52,8 +54,10 @@ open class ShipmentAPI {
   }, {
     "ChannelOrderNo" : "ChannelOrderNo",
     "TrackTraceUrl" : "TrackTraceUrl",
+    "CreatedAt" : "2000-01-23T04:56:07.000+00:00",
     "TrackTraceNo" : "TrackTraceNo",
     "Method" : "Method",
+    "UpdatedAt" : "2000-01-23T04:56:07.000+00:00",
     "Lines" : [ {
       "Quantity" : 0,
       "ChannelProductNo" : "ChannelProductNo"
@@ -65,21 +69,22 @@ open class ShipmentAPI {
   "ItemsPerPage" : 5,
   "Count" : 6,
   "StatusCode" : 5,
+  "LogId" : 2,
   "Success" : true
 }}]
      
-     - parameter createdSince: (query)  
+     - parameter createdSince: (query)  (optional)
 
      - returns: RequestBuilder<CollectionOfChannelShipmentResponse> 
      */
-    open class func shipmentIndexWithRequestBuilder(createdSince: Date) -> RequestBuilder<CollectionOfChannelShipmentResponse> {
+    open class func shipmentIndexWithRequestBuilder(createdSince: Date? = nil) -> RequestBuilder<CollectionOfChannelShipmentResponse> {
         let path = "/v2/shipments"
         let URLString = ChannelEngineChannelApiClientAPI.basePath + path
         let parameters: [String:Any]? = nil
 
         let url = NSURLComponents(string: URLString)
         url?.queryItems = APIHelper.mapValuesToQueryItems(values:[
-            "createdSince": createdSince.encodeToJSON()
+            "createdSince": createdSince?.encodeToJSON()
         ])
         
 

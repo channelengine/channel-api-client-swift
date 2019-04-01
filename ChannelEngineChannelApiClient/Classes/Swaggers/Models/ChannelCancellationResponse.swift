@@ -22,6 +22,10 @@ public struct ChannelCancellationResponse: Codable {
     /** The unique order reference used by the Channel */
     public var channelOrderNo: String
     public var lines: [ChannelCancellationLineResponse]
+    /** The date at which the cancellation was created in ChannelEngine */
+    public var createdAt: Date?
+    /** The date at which the cancellation was last modified in ChannelEngine */
+    public var updatedAt: Date?
     /** Reason for cancellation (text) */
     public var reason: String?
     /** Reason code for cancellation */
@@ -31,6 +35,8 @@ public struct ChannelCancellationResponse: Codable {
     public enum CodingKeys: String, CodingKey { 
         case channelOrderNo = "ChannelOrderNo"
         case lines = "Lines"
+        case createdAt = "CreatedAt"
+        case updatedAt = "UpdatedAt"
         case reason = "Reason"
         case reasonCode = "ReasonCode"
     }

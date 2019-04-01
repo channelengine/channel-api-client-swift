@@ -20,6 +20,7 @@ public struct ChannelReturnRequest: Codable {
         case refusedDamaged = "REFUSED_DAMAGED"
         case wrongAddress = "WRONG_ADDRESS"
         case notCollected = "NOT_COLLECTED"
+        case wrongSize = "WRONG_SIZE"
         case other = "OTHER"
     }
     /** The unique order reference used by the Channel */

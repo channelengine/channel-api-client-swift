@@ -24,7 +24,7 @@ public struct ChannelProductResponse: Codable {
     public var mappedFields: [String:String]?
     /** The name of the product */
     public var name: String?
-    /** A description of the product */
+    /** A description of the product. Can contain these HTML tags:  div, span, pre, p, br, hr, hgroup, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, strong, em, b, i, u, img, a, abbr, address, blockquote, area, audio, video, caption, table, tbody, td, tfoot, th, thead, tr */
     public var _description: String?
     /** The brand of the product */
     public var brand: String?

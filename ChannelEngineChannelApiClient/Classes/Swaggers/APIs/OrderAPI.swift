@@ -37,6 +37,7 @@ open class OrderAPI {
     "key" : [ "ValidationErrors", "ValidationErrors" ]
   },
   "StatusCode" : 0,
+  "LogId" : 6,
   "Success" : true
 }}]
      
@@ -61,7 +62,7 @@ open class OrderAPI {
      Download Invoice
      
      - parameter merchantOrderNo: (path) The unique order reference as used by the merchant 
-     - parameter useCustomerCulture: (query) Generate the invoice in the billing address&#39; country&#39;s language (optional)
+     - parameter useCustomerCulture: (query) Generate the invoice in the billing address&#39; country&#39;s language (optional, default to false)
      - parameter completion: completion handler to receive the data and the error objects
      */
     open class func orderInvoice(merchantOrderNo: String, useCustomerCulture: Bool? = nil, completion: @escaping ((_ data: URL?,_ error: Error?) -> Void)) {
@@ -81,7 +82,7 @@ open class OrderAPI {
      - examples: [{output=none}]
      
      - parameter merchantOrderNo: (path) The unique order reference as used by the merchant 
-     - parameter useCustomerCulture: (query) Generate the invoice in the billing address&#39; country&#39;s language (optional)
+     - parameter useCustomerCulture: (query) Generate the invoice in the billing address&#39; country&#39;s language (optional, default to false)
 
      - returns: RequestBuilder<URL> 
      */
@@ -108,7 +109,7 @@ open class OrderAPI {
      Download Packing Slip
      
      - parameter merchantOrderNo: (path) The unique order reference as used by the merchant 
-     - parameter useCustomerCulture: (query) Generate the invoice in the billing address&#39; country&#39;s language (optional)
+     - parameter useCustomerCulture: (query) Generate the invoice in the billing address&#39; country&#39;s language (optional, default to false)
      - parameter completion: completion handler to receive the data and the error objects
      */
     open class func orderPackingSlip(merchantOrderNo: String, useCustomerCulture: Bool? = nil, completion: @escaping ((_ data: URL?,_ error: Error?) -> Void)) {
@@ -128,7 +129,7 @@ open class OrderAPI {
      - examples: [{output=none}]
      
      - parameter merchantOrderNo: (path) The unique order reference as used by the merchant 
-     - parameter useCustomerCulture: (query) Generate the invoice in the billing address&#39; country&#39;s language (optional)
+     - parameter useCustomerCulture: (query) Generate the invoice in the billing address&#39; country&#39;s language (optional, default to false)
 
      - returns: RequestBuilder<URL> 
      */

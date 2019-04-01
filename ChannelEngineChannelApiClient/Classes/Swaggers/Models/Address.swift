@@ -24,11 +24,11 @@ public struct Address: Codable {
     public var firstName: String?
     /** The last name of the customer (includes the surname prefix [tussenvoegsel] like &#39;de&#39;, &#39;van&#39;, &#39;du&#39;) */
     public var lastName: String?
-    /** The name of the street (without house number information) */
+    /** The name of the street (without house number information)  This field might be empty if address validation is disabled in ChannelEngine */
     public var streetName: String?
-    /** The house number */
+    /** The house number  This field might be empty if address validation is disabled in ChannelEngine */
     public var houseNr: String?
-    /** Optional. Addition to the house number  If the address is: Groenhazengracht 2c, the address will be:  StreetName: Groenhazengracht  HouseNo: 2  HouseNrAddition: c */
+    /** Optional. Addition to the house number  If the address is: Groenhazengracht 2c, the address will be:  StreetName: Groenhazengracht  HouseNo: 2  HouseNrAddition: c  This field might be empty if address validation is disabled in ChannelEngine */
     public var houseNrAddition: String?
     /** The zip or postal code */
     public var zipCode: String?

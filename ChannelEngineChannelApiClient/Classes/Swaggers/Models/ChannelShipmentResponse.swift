@@ -14,17 +14,23 @@ public struct ChannelShipmentResponse: Codable {
     /** The unique order reference used by the Channel */
     public var channelOrderNo: String
     public var lines: [ChannelShipmentLineResponse]
+    /** The date at which the shipment was created in ChannelEngine */
+    public var createdAt: Date?
+    /** The date at which the shipment was last modified in ChannelEngine */
+    public var updatedAt: Date?
     /** The unique shipping reference used by the Shipping carrier (track&amp;amp;trace number) */
     public var trackTraceNo: String?
     /** A link to a page of the carrier where the customer can track the shipping of her package. */
     public var trackTraceUrl: String?
-    /** Shipment method (carrier) */
+    /** Shipment method: the carrier used for shipping the package. E.g. DHL, postNL */
     public var method: String?
 
 
     public enum CodingKeys: String, CodingKey { 
         case channelOrderNo = "ChannelOrderNo"
         case lines = "Lines"
+        case createdAt = "CreatedAt"
+        case updatedAt = "UpdatedAt"
         case trackTraceNo = "TrackTraceNo"
         case trackTraceUrl = "TrackTraceUrl"
         case method = "Method"

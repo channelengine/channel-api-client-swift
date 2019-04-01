@@ -13,6 +13,7 @@ public struct SingleOfChannelProductChangesResponse: Codable {
 
     public var content: ChannelProductChangesResponse?
     public var statusCode: Int?
+    public var logId: Int?
     public var success: Bool?
     public var message: String?
     public var validationErrors: [String:[String]]?
@@ -21,6 +22,7 @@ public struct SingleOfChannelProductChangesResponse: Codable {
     public enum CodingKeys: String, CodingKey { 
         case content = "Content"
         case statusCode = "StatusCode"
+        case logId = "LogId"
         case success = "Success"
         case message = "Message"
         case validationErrors = "ValidationErrors"

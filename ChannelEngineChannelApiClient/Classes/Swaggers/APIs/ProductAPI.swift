@@ -37,6 +37,7 @@ open class ProductAPI {
     "key" : [ "ValidationErrors", "ValidationErrors" ]
   },
   "StatusCode" : 0,
+  "LogId" : 6,
   "Success" : true
 }}]
      
@@ -83,6 +84,7 @@ open class ProductAPI {
     "key" : [ "ValidationErrors", "ValidationErrors" ]
   },
   "StatusCode" : 0,
+  "LogId" : 6,
   "Success" : true
 }}]
      
@@ -306,6 +308,7 @@ open class ProductAPI {
     } ]
   },
   "StatusCode" : 7,
+  "LogId" : 9,
   "Success" : true
 }}]
      
@@ -366,6 +369,7 @@ open class ProductAPI {
   "ItemsPerPage" : 5,
   "Count" : 1,
   "StatusCode" : 2,
+  "LogId" : 7,
   "Success" : true
 }}]
 

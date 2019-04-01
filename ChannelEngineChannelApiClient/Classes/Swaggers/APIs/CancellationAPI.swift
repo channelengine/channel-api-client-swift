@@ -14,10 +14,10 @@ open class CancellationAPI {
     /**
      Get Cancellations
      
-     - parameter createdSince: (query)  
+     - parameter createdSince: (query)  (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func cancellationIndex(createdSince: Date, completion: @escaping ((_ data: CollectionOfChannelCancellationResponse?,_ error: Error?) -> Void)) {
+    open class func cancellationIndex(createdSince: Date? = nil, completion: @escaping ((_ data: CollectionOfChannelCancellationResponse?,_ error: Error?) -> Void)) {
         cancellationIndexWithRequestBuilder(createdSince: createdSince).execute { (response, error) -> Void in
             completion(response?.body, error);
         }
@@ -39,6 +39,8 @@ open class CancellationAPI {
   },
   "Content" : [ {
     "ChannelOrderNo" : "ChannelOrderNo",
+    "CreatedAt" : "2000-01-23T04:56:07.000+00:00",
+    "UpdatedAt" : "2000-01-23T04:56:07.000+00:00",
     "ReasonCode" : "NOT_IN_STOCK",
     "Reason" : "Reason",
     "Lines" : [ {
@@ -50,6 +52,8 @@ open class CancellationAPI {
     } ]
   }, {
     "ChannelOrderNo" : "ChannelOrderNo",
+    "CreatedAt" : "2000-01-23T04:56:07.000+00:00",
+    "UpdatedAt" : "2000-01-23T04:56:07.000+00:00",
     "ReasonCode" : "NOT_IN_STOCK",
     "Reason" : "Reason",
     "Lines" : [ {
@@ -63,21 +67,22 @@ open class CancellationAPI {
   "ItemsPerPage" : 5,
   "Count" : 6,
   "StatusCode" : 5,
+  "LogId" : 2,
   "Success" : true
 }}]
      
-     - parameter createdSince: (query)  
+     - parameter createdSince: (query)  (optional)
 
      - returns: RequestBuilder<CollectionOfChannelCancellationResponse> 
      */
-    open class func cancellationIndexWithRequestBuilder(createdSince: Date) -> RequestBuilder<CollectionOfChannelCancellationResponse> {
+    open class func cancellationIndexWithRequestBuilder(createdSince: Date? = nil) -> RequestBuilder<CollectionOfChannelCancellationResponse> {
         let path = "/v2/cancellations"
         let URLString = ChannelEngineChannelApiClientAPI.basePath + path
         let parameters: [String:Any]? = nil
 
         let url = NSURLComponents(string: URLString)
         url?.queryItems = APIHelper.mapValuesToQueryItems(values:[
-            "createdSince": createdSince.encodeToJSON()
+            "createdSince": createdSince?.encodeToJSON()
         ])
         
 

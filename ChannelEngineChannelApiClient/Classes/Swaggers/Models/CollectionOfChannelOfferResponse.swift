@@ -19,6 +19,7 @@ public struct CollectionOfChannelOfferResponse: Codable {
     /** The number of items per page */
     public var itemsPerPage: Int?
     public var statusCode: Int?
+    public var logId: Int?
     public var success: Bool?
     public var message: String?
     public var validationErrors: [String:[String]]?
@@ -30,6 +31,7 @@ public struct CollectionOfChannelOfferResponse: Codable {
         case totalCount = "TotalCount"
         case itemsPerPage = "ItemsPerPage"
         case statusCode = "StatusCode"
+        case logId = "LogId"
         case success = "Success"
         case message = "Message"
         case validationErrors = "ValidationErrors"

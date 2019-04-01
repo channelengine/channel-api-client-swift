@@ -7,7 +7,7 @@
 import Foundation
 
 open class ChannelEngineChannelApiClientAPI {
-    open static var basePath = "https://demo.channelengine.net/api"
+    open static var basePath = "https://localhost/api"
     open static var credential: URLCredential?
     open static var customHeaders: [String:String] = [:]
     open static var requestBuilderFactory: RequestBuilderFactory = AlamofireRequestBuilderFactory()

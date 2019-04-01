@@ -37,6 +37,7 @@ open class ReturnAPI {
     "key" : [ "ValidationErrors", "ValidationErrors" ]
   },
   "StatusCode" : 0,
+  "LogId" : 6,
   "Success" : true
 }}]
      
@@ -60,10 +61,10 @@ open class ReturnAPI {
     /**
      Get Returns
      
-     - parameter createdSince: (query)  
+     - parameter createdSince: (query)  (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func returnGetDeclaredByMerchant(createdSince: Date, completion: @escaping ((_ data: CollectionOfChannelReturnResponse?,_ error: Error?) -> Void)) {
+    open class func returnGetDeclaredByMerchant(createdSince: Date? = nil, completion: @escaping ((_ data: CollectionOfChannelReturnResponse?,_ error: Error?) -> Void)) {
         returnGetDeclaredByMerchantWithRequestBuilder(createdSince: createdSince).execute { (response, error) -> Void in
             completion(response?.body, error);
         }
@@ -88,8 +89,10 @@ open class ReturnAPI {
     "MerchantComment" : "MerchantComment",
     "RefundExclVat" : 5.962133916683182377482808078639209270477294921875,
     "CustomerComment" : "CustomerComment",
+    "CreatedAt" : "2000-01-23T04:56:07.000+00:00",
     "ChannelReturnNo" : "ChannelReturnNo",
     "Id" : 6,
+    "UpdatedAt" : "2000-01-23T04:56:07.000+00:00",
     "Reason" : "PRODUCT_DEFECT",
     "Lines" : [ {
       "Quantity" : 0,
@@ -104,8 +107,10 @@ open class ReturnAPI {
     "MerchantComment" : "MerchantComment",
     "RefundExclVat" : 5.962133916683182377482808078639209270477294921875,
     "CustomerComment" : "CustomerComment",
+    "CreatedAt" : "2000-01-23T04:56:07.000+00:00",
     "ChannelReturnNo" : "ChannelReturnNo",
     "Id" : 6,
+    "UpdatedAt" : "2000-01-23T04:56:07.000+00:00",
     "Reason" : "PRODUCT_DEFECT",
     "Lines" : [ {
       "Quantity" : 0,
@@ -119,21 +124,22 @@ open class ReturnAPI {
   "ItemsPerPage" : 7,
   "Count" : 5,
   "StatusCode" : 9,
+  "LogId" : 3,
   "Success" : true
 }}]
      
-     - parameter createdSince: (query)  
+     - parameter createdSince: (query)  (optional)
 
      - returns: RequestBuilder<CollectionOfChannelReturnResponse> 
      */
-    open class func returnGetDeclaredByMerchantWithRequestBuilder(createdSince: Date) -> RequestBuilder<CollectionOfChannelReturnResponse> {
+    open class func returnGetDeclaredByMerchantWithRequestBuilder(createdSince: Date? = nil) -> RequestBuilder<CollectionOfChannelReturnResponse> {
         let path = "/v2/returns/channel"
         let URLString = ChannelEngineChannelApiClientAPI.basePath + path
         let parameters: [String:Any]? = nil
 
         let url = NSURLComponents(string: URLString)
         url?.queryItems = APIHelper.mapValuesToQueryItems(values:[
-            "createdSince": createdSince.encodeToJSON()
+            "createdSince": createdSince?.encodeToJSON()
         ])
         
 
