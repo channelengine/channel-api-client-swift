@@ -11,8 +11,14 @@ import Foundation
 
 public struct ChannelOrderRequest: Codable {
 
+    /** The billing or invoice address */
+    public var billingAddress: ChannelAddressRequest
+    /** The shipping address */
+    public var shippingAddress: ChannelAddressRequest
     /** The unique order reference used by the Channel */
     public var channelOrderNo: String
+    /** Optional. Is a business order (default value is false).  If not provided the VAT Number will be checked. If a VAT Number is found, IsBusinessOrder will be set to true.  No VAT will be calculated when set to true. */
+    public var isBusinessOrder: Bool?
     /** The order lines */
     public var lines: [ChannelOrderLineRequest]
     /** The customer&#39;s telephone number */
@@ -33,16 +39,15 @@ public struct ChannelOrderRequest: Codable {
     public var orderDate: Date
     /** The unique customer reference used by the channel */
     public var channelCustomerNo: String?
-    /** The billing or invoice address */
-    public var billingAddress: Address
-    /** The shipping address */
-    public var shippingAddress: Address
     /** Extra data on the order */
     public var extraData: [String:String]?
 
 
     public enum CodingKeys: String, CodingKey { 
+        case billingAddress = "BillingAddress"
+        case shippingAddress = "ShippingAddress"
         case channelOrderNo = "ChannelOrderNo"
+        case isBusinessOrder = "IsBusinessOrder"
         case lines = "Lines"
         case phone = "Phone"
         case email = "Email"
@@ -53,8 +58,6 @@ public struct ChannelOrderRequest: Codable {
         case currencyCode = "CurrencyCode"
         case orderDate = "OrderDate"
         case channelCustomerNo = "ChannelCustomerNo"
-        case billingAddress = "BillingAddress"
-        case shippingAddress = "ShippingAddress"
         case extraData = "ExtraData"
     }
 

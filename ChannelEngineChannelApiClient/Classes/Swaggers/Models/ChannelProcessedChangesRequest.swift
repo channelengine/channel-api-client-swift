@@ -12,7 +12,7 @@ import Foundation
 public struct ChannelProcessedChangesRequest: Codable {
 
     /** A collection of pairs of merchant and channel references  of the products which are successfully created. The channel references  are saved such that in subsequent calls these can be used instead of the   merchant references. */
-    public var created: [ChannelReferencesRequest]?
+    public var created: [ChannelProductReferencesRequest]?
     /** The channel references of the products which are successfully updated. */
     public var updated: [String]?
     /** The channel references of the products which are successfully removed. */
