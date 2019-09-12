@@ -16,6 +16,10 @@ public struct ChannelReturnLineResponse: Codable {
     /** Number of items of the product in this return */
     public var quantity: Int
 
+    public init(channelProductNo: String, quantity: Int) {
+        self.channelProductNo = channelProductNo
+        self.quantity = quantity
+    }
 
     public enum CodingKeys: String, CodingKey { 
         case channelProductNo = "ChannelProductNo"

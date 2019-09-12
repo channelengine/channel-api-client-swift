@@ -19,7 +19,7 @@ open class ReturnAPI {
      */
     open class func returnDeclareForChannel(model: ChannelReturnRequest, completion: @escaping ((_ data: ApiResponse?,_ error: Error?) -> Void)) {
         returnDeclareForChannelWithRequestBuilder(model: model).execute { (response, error) -> Void in
-            completion(response?.body, error);
+            completion(response?.body, error)
         }
     }
 
@@ -50,8 +50,9 @@ open class ReturnAPI {
         let URLString = ChannelEngineChannelApiClientAPI.basePath + path
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: model)
 
-        let url = NSURLComponents(string: URLString)
-
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+        ])
 
         let requestBuilder: RequestBuilder<ApiResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
 
@@ -96,7 +97,7 @@ open class ReturnAPI {
      */
     open class func returnGetDeclaredByMerchant(createdSince: Date? = nil, statuses: [String]? = nil, reasons: [String]? = nil, fromDate: Date? = nil, toDate: Date? = nil, page: Int? = nil, completion: @escaping ((_ data: CollectionOfChannelReturnResponse?,_ error: Error?) -> Void)) {
         returnGetDeclaredByMerchantWithRequestBuilder(createdSince: createdSince, statuses: statuses, reasons: reasons, fromDate: fromDate, toDate: toDate, page: page).execute { (response, error) -> Void in
-            completion(response?.body, error);
+            completion(response?.body, error)
         }
     }
 
@@ -171,9 +172,9 @@ open class ReturnAPI {
         let path = "/v2/returns/channel"
         let URLString = ChannelEngineChannelApiClientAPI.basePath + path
         let parameters: [String:Any]? = nil
-
-        let url = NSURLComponents(string: URLString)
-        url?.queryItems = APIHelper.mapValuesToQueryItems(values:[
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
             "createdSince": createdSince?.encodeToJSON(), 
             "statuses": statuses, 
             "reasons": reasons, 
@@ -181,7 +182,6 @@ open class ReturnAPI {
             "toDate": toDate?.encodeToJSON(), 
             "page": page?.encodeToJSON()
         ])
-        
 
         let requestBuilder: RequestBuilder<CollectionOfChannelReturnResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
 

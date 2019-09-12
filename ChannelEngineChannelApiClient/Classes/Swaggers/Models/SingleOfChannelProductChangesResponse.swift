@@ -18,6 +18,14 @@ public struct SingleOfChannelProductChangesResponse: Codable {
     public var message: String?
     public var validationErrors: [String:[String]]?
 
+    public init(content: ChannelProductChangesResponse?, statusCode: Int?, logId: Int?, success: Bool?, message: String?, validationErrors: [String:[String]]?) {
+        self.content = content
+        self.statusCode = statusCode
+        self.logId = logId
+        self.success = success
+        self.message = message
+        self.validationErrors = validationErrors
+    }
 
     public enum CodingKeys: String, CodingKey { 
         case content = "Content"

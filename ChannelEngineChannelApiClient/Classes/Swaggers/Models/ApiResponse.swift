@@ -17,6 +17,13 @@ public struct ApiResponse: Codable {
     public var message: String?
     public var validationErrors: [String:[String]]?
 
+    public init(statusCode: Int?, logId: Int?, success: Bool?, message: String?, validationErrors: [String:[String]]?) {
+        self.statusCode = statusCode
+        self.logId = logId
+        self.success = success
+        self.message = message
+        self.validationErrors = validationErrors
+    }
 
     public enum CodingKeys: String, CodingKey { 
         case statusCode = "StatusCode"

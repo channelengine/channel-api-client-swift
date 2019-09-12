@@ -42,6 +42,23 @@ public struct ChannelOrderRequest: Codable {
     /** Extra data on the order */
     public var extraData: [String:String]?
 
+    public init(billingAddress: ChannelAddressRequest, shippingAddress: ChannelAddressRequest, channelOrderNo: String, isBusinessOrder: Bool?, lines: [ChannelOrderLineRequest], phone: String?, email: String, companyRegistrationNo: String?, vatNo: String?, paymentMethod: String?, shippingCostsInclVat: Double, currencyCode: String, orderDate: Date, channelCustomerNo: String?, extraData: [String:String]?) {
+        self.billingAddress = billingAddress
+        self.shippingAddress = shippingAddress
+        self.channelOrderNo = channelOrderNo
+        self.isBusinessOrder = isBusinessOrder
+        self.lines = lines
+        self.phone = phone
+        self.email = email
+        self.companyRegistrationNo = companyRegistrationNo
+        self.vatNo = vatNo
+        self.paymentMethod = paymentMethod
+        self.shippingCostsInclVat = shippingCostsInclVat
+        self.currencyCode = currencyCode
+        self.orderDate = orderDate
+        self.channelCustomerNo = channelCustomerNo
+        self.extraData = extraData
+    }
 
     public enum CodingKeys: String, CodingKey { 
         case billingAddress = "BillingAddress"

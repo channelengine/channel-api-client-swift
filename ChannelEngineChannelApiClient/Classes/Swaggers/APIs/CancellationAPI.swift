@@ -19,7 +19,7 @@ open class CancellationAPI {
      */
     open class func cancellationIndex(createdSince: Date? = nil, completion: @escaping ((_ data: CollectionOfChannelCancellationResponse?,_ error: Error?) -> Void)) {
         cancellationIndexWithRequestBuilder(createdSince: createdSince).execute { (response, error) -> Void in
-            completion(response?.body, error);
+            completion(response?.body, error)
         }
     }
 
@@ -79,12 +79,11 @@ open class CancellationAPI {
         let path = "/v2/cancellations"
         let URLString = ChannelEngineChannelApiClientAPI.basePath + path
         let parameters: [String:Any]? = nil
-
-        let url = NSURLComponents(string: URLString)
-        url?.queryItems = APIHelper.mapValuesToQueryItems(values:[
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
             "createdSince": createdSince?.encodeToJSON()
         ])
-        
 
         let requestBuilder: RequestBuilder<CollectionOfChannelCancellationResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
 

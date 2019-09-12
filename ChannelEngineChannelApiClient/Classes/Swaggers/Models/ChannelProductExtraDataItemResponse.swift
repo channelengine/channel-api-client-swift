@@ -26,6 +26,12 @@ public struct ChannelProductExtraDataItemResponse: Codable {
     /** Add this field to the export of the product feed to the channel */
     public var isPublic: Bool?
 
+    public init(key: String?, value: String?, type: ModelType?, isPublic: Bool?) {
+        self.key = key
+        self.value = value
+        self.type = type
+        self.isPublic = isPublic
+    }
 
     public enum CodingKeys: String, CodingKey { 
         case key = "Key"

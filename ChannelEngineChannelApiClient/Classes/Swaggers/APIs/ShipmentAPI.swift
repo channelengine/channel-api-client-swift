@@ -19,7 +19,7 @@ open class ShipmentAPI {
      */
     open class func shipmentIndex(createdSince: Date? = nil, completion: @escaping ((_ data: CollectionOfChannelShipmentResponse?,_ error: Error?) -> Void)) {
         shipmentIndexWithRequestBuilder(createdSince: createdSince).execute { (response, error) -> Void in
-            completion(response?.body, error);
+            completion(response?.body, error)
         }
     }
 
@@ -81,12 +81,11 @@ open class ShipmentAPI {
         let path = "/v2/shipments"
         let URLString = ChannelEngineChannelApiClientAPI.basePath + path
         let parameters: [String:Any]? = nil
-
-        let url = NSURLComponents(string: URLString)
-        url?.queryItems = APIHelper.mapValuesToQueryItems(values:[
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
             "createdSince": createdSince?.encodeToJSON()
         ])
-        
 
         let requestBuilder: RequestBuilder<CollectionOfChannelShipmentResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
 

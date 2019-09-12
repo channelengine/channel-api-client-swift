@@ -41,6 +41,17 @@ public struct ChannelReturnRequest: Codable {
     /** Refund amount excl. VAT */
     public var refundExclVat: Double?
 
+    public init(channelOrderNo: String, channelReference: String, lines: [ChannelReturnLineRequest], _id: Int?, reason: Reason?, customerComment: String?, merchantComment: String?, refundInclVat: Double?, refundExclVat: Double?) {
+        self.channelOrderNo = channelOrderNo
+        self.channelReference = channelReference
+        self.lines = lines
+        self._id = _id
+        self.reason = reason
+        self.customerComment = customerComment
+        self.merchantComment = merchantComment
+        self.refundInclVat = refundInclVat
+        self.refundExclVat = refundExclVat
+    }
 
     public enum CodingKeys: String, CodingKey { 
         case channelOrderNo = "ChannelOrderNo"

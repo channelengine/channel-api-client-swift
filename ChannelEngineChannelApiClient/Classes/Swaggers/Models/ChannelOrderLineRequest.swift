@@ -36,6 +36,15 @@ public struct ChannelOrderLineRequest: Codable {
     /** The condition of the product, this can be used to indicate that a product is a second-hand product */
     public var condition: Condition?
 
+    public init(channelProductNo: String, quantity: Int, cancellationRequestedQuantity: Int?, unitPriceInclVat: Double, feeFixed: Double?, feeRate: Double?, condition: Condition?) {
+        self.channelProductNo = channelProductNo
+        self.quantity = quantity
+        self.cancellationRequestedQuantity = cancellationRequestedQuantity
+        self.unitPriceInclVat = unitPriceInclVat
+        self.feeFixed = feeFixed
+        self.feeRate = feeRate
+        self.condition = condition
+    }
 
     public enum CodingKeys: String, CodingKey { 
         case channelProductNo = "ChannelProductNo"

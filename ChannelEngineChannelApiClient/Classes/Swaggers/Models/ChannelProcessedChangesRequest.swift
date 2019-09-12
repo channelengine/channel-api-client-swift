@@ -18,6 +18,11 @@ public struct ChannelProcessedChangesRequest: Codable {
     /** The channel references of the products which are successfully removed. */
     public var removed: [String]?
 
+    public init(created: [ChannelProductReferencesRequest]?, updated: [String]?, removed: [String]?) {
+        self.created = created
+        self.updated = updated
+        self.removed = removed
+    }
 
     public enum CodingKeys: String, CodingKey { 
         case created = "Created"

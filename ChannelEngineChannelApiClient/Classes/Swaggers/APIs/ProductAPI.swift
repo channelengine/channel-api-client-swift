@@ -19,7 +19,7 @@ open class ProductAPI {
      */
     open class func productAcknowledgeDataChanges(changes: ChannelProcessedChangesRequest, completion: @escaping ((_ data: ApiResponse?,_ error: Error?) -> Void)) {
         productAcknowledgeDataChangesWithRequestBuilder(changes: changes).execute { (response, error) -> Void in
-            completion(response?.body, error);
+            completion(response?.body, error)
         }
     }
 
@@ -50,8 +50,9 @@ open class ProductAPI {
         let URLString = ChannelEngineChannelApiClientAPI.basePath + path
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: changes)
 
-        let url = NSURLComponents(string: URLString)
-
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+        ])
 
         let requestBuilder: RequestBuilder<ApiResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
 
@@ -66,7 +67,7 @@ open class ProductAPI {
      */
     open class func productAcknowledgeOfferChanges(changes: [String], completion: @escaping ((_ data: ApiResponse?,_ error: Error?) -> Void)) {
         productAcknowledgeOfferChangesWithRequestBuilder(changes: changes).execute { (response, error) -> Void in
-            completion(response?.body, error);
+            completion(response?.body, error)
         }
     }
 
@@ -97,8 +98,9 @@ open class ProductAPI {
         let URLString = ChannelEngineChannelApiClientAPI.basePath + path
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: changes)
 
-        let url = NSURLComponents(string: URLString)
-
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+        ])
 
         let requestBuilder: RequestBuilder<ApiResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
 
@@ -113,7 +115,7 @@ open class ProductAPI {
      */
     open class func productGetDataChanges(maxCount: Int? = nil, completion: @escaping ((_ data: SingleOfChannelProductChangesResponse?,_ error: Error?) -> Void)) {
         productGetDataChangesWithRequestBuilder(maxCount: maxCount).execute { (response, error) -> Void in
-            completion(response?.body, error);
+            completion(response?.body, error)
         }
     }
 
@@ -320,12 +322,11 @@ open class ProductAPI {
         let path = "/v2/products/data"
         let URLString = ChannelEngineChannelApiClientAPI.basePath + path
         let parameters: [String:Any]? = nil
-
-        let url = NSURLComponents(string: URLString)
-        url?.queryItems = APIHelper.mapValuesToQueryItems(values:[
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
             "maxCount": maxCount?.encodeToJSON()
         ])
-        
 
         let requestBuilder: RequestBuilder<SingleOfChannelProductChangesResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
 
@@ -339,7 +340,7 @@ open class ProductAPI {
      */
     open class func productGetOfferChanges(completion: @escaping ((_ data: CollectionOfChannelOfferResponse?,_ error: Error?) -> Void)) {
         productGetOfferChangesWithRequestBuilder().execute { (response, error) -> Void in
-            completion(response?.body, error);
+            completion(response?.body, error)
         }
     }
 
@@ -379,9 +380,10 @@ open class ProductAPI {
         let path = "/v2/products/offers"
         let URLString = ChannelEngineChannelApiClientAPI.basePath + path
         let parameters: [String:Any]? = nil
-
-        let url = NSURLComponents(string: URLString)
-
+        
+        var url = URLComponents(string: URLString)
+        url?.queryItems = APIHelper.mapValuesToQueryItems([
+        ])
 
         let requestBuilder: RequestBuilder<CollectionOfChannelOfferResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
 

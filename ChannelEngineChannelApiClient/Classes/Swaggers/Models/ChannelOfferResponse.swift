@@ -16,6 +16,11 @@ public struct ChannelOfferResponse: Codable {
     public var price: Double?
     public var stock: Int?
 
+    public init(channelProductNo: String?, price: Double?, stock: Int?) {
+        self.channelProductNo = channelProductNo
+        self.price = price
+        self.stock = stock
+    }
 
     public enum CodingKeys: String, CodingKey { 
         case channelProductNo = "ChannelProductNo"

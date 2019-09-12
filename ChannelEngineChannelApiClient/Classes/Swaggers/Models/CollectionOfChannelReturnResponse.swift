@@ -24,6 +24,17 @@ public struct CollectionOfChannelReturnResponse: Codable {
     public var message: String?
     public var validationErrors: [String:[String]]?
 
+    public init(content: [ChannelReturnResponse]?, count: Int?, totalCount: Int?, itemsPerPage: Int?, statusCode: Int?, logId: Int?, success: Bool?, message: String?, validationErrors: [String:[String]]?) {
+        self.content = content
+        self.count = count
+        self.totalCount = totalCount
+        self.itemsPerPage = itemsPerPage
+        self.statusCode = statusCode
+        self.logId = logId
+        self.success = success
+        self.message = message
+        self.validationErrors = validationErrors
+    }
 
     public enum CodingKeys: String, CodingKey { 
         case content = "Content"

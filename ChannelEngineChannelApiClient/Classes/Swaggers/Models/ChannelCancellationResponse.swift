@@ -31,6 +31,14 @@ public struct ChannelCancellationResponse: Codable {
     /** Reason code for cancellation */
     public var reasonCode: ReasonCode?
 
+    public init(channelOrderNo: String, lines: [ChannelCancellationLineResponse], createdAt: Date?, updatedAt: Date?, reason: String?, reasonCode: ReasonCode?) {
+        self.channelOrderNo = channelOrderNo
+        self.lines = lines
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
+        self.reason = reason
+        self.reasonCode = reasonCode
+    }
 
     public enum CodingKeys: String, CodingKey { 
         case channelOrderNo = "ChannelOrderNo"

@@ -77,6 +77,38 @@ public struct ChannelProductResponse: Codable {
     /** The category to which this product belongs.  Please supply this field in the following format:  &#39;maincategory &amp;gt; category &amp;gt; subcategory&#39;  For example:  &#39;vehicles &amp;gt; bikes &amp;gt; mountainbike&#39; */
     public var categoryTrail: String?
 
+    public init(_id: Int?, parentChannelProductNo: String?, mappedFields: [String:String]?, extraData: [ChannelProductExtraDataItemResponse]?, name: String?, _description: String?, brand: String?, size: String?, color: String?, ean: String?, manufacturerProductNumber: String?, stock: Int?, price: Double?, MSRP: Double?, purchasePrice: Double?, vatRateType: VatRateType?, shippingCost: Double?, shippingTime: String?, url: String?, imageUrl: String?, extraImageUrl1: String?, extraImageUrl2: String?, extraImageUrl3: String?, extraImageUrl4: String?, extraImageUrl5: String?, extraImageUrl6: String?, extraImageUrl7: String?, extraImageUrl8: String?, extraImageUrl9: String?, categoryTrail: String?) {
+        self._id = _id
+        self.parentChannelProductNo = parentChannelProductNo
+        self.mappedFields = mappedFields
+        self.extraData = extraData
+        self.name = name
+        self._description = _description
+        self.brand = brand
+        self.size = size
+        self.color = color
+        self.ean = ean
+        self.manufacturerProductNumber = manufacturerProductNumber
+        self.stock = stock
+        self.price = price
+        self.MSRP = MSRP
+        self.purchasePrice = purchasePrice
+        self.vatRateType = vatRateType
+        self.shippingCost = shippingCost
+        self.shippingTime = shippingTime
+        self.url = url
+        self.imageUrl = imageUrl
+        self.extraImageUrl1 = extraImageUrl1
+        self.extraImageUrl2 = extraImageUrl2
+        self.extraImageUrl3 = extraImageUrl3
+        self.extraImageUrl4 = extraImageUrl4
+        self.extraImageUrl5 = extraImageUrl5
+        self.extraImageUrl6 = extraImageUrl6
+        self.extraImageUrl7 = extraImageUrl7
+        self.extraImageUrl8 = extraImageUrl8
+        self.extraImageUrl9 = extraImageUrl9
+        self.categoryTrail = categoryTrail
+    }
 
     public enum CodingKeys: String, CodingKey { 
         case _id = "Id"

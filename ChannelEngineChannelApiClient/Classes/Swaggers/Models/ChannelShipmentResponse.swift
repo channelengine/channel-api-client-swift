@@ -25,6 +25,15 @@ public struct ChannelShipmentResponse: Codable {
     /** Shipment method: the carrier used for shipping the package. E.g. DHL, postNL */
     public var method: String?
 
+    public init(channelOrderNo: String, lines: [ChannelShipmentLineResponse], createdAt: Date?, updatedAt: Date?, trackTraceNo: String?, trackTraceUrl: String?, method: String?) {
+        self.channelOrderNo = channelOrderNo
+        self.lines = lines
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
+        self.trackTraceNo = trackTraceNo
+        self.trackTraceUrl = trackTraceUrl
+        self.method = method
+    }
 
     public enum CodingKeys: String, CodingKey { 
         case channelOrderNo = "ChannelOrderNo"

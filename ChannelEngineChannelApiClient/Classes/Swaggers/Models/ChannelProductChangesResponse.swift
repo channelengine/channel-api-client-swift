@@ -15,6 +15,11 @@ public struct ChannelProductChangesResponse: Codable {
     public var toBeUpdated: [ChannelProductResponse]?
     public var toBeRemoved: [String]?
 
+    public init(toBeCreated: [ChannelProductResponse]?, toBeUpdated: [ChannelProductResponse]?, toBeRemoved: [String]?) {
+        self.toBeCreated = toBeCreated
+        self.toBeUpdated = toBeUpdated
+        self.toBeRemoved = toBeRemoved
+    }
 
     public enum CodingKeys: String, CodingKey { 
         case toBeCreated = "ToBeCreated"

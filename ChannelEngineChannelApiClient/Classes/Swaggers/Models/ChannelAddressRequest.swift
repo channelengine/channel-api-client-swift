@@ -41,6 +41,20 @@ public struct ChannelAddressRequest: Codable {
     /** Optional. The address as a single string: use in case the address lines are entered  as single lines and later parsed into street, house number and house number addition. */
     public var original: String?
 
+    public init(gender: Gender?, companyName: String?, firstName: String?, lastName: String?, streetName: String?, houseNr: String?, houseNrAddition: String?, zipCode: String?, city: String?, region: String?, countryIso: String?, original: String?) {
+        self.gender = gender
+        self.companyName = companyName
+        self.firstName = firstName
+        self.lastName = lastName
+        self.streetName = streetName
+        self.houseNr = houseNr
+        self.houseNrAddition = houseNrAddition
+        self.zipCode = zipCode
+        self.city = city
+        self.region = region
+        self.countryIso = countryIso
+        self.original = original
+    }
 
     public enum CodingKeys: String, CodingKey { 
         case gender = "Gender"

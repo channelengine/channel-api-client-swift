@@ -16,6 +16,10 @@ public struct ChannelProductReferencesRequest: Codable {
     /** The unique product reference used by the Channel */
     public var channelProductNo: String?
 
+    public init(_id: Int?, channelProductNo: String?) {
+        self._id = _id
+        self.channelProductNo = channelProductNo
+    }
 
     public enum CodingKeys: String, CodingKey { 
         case _id = "Id"

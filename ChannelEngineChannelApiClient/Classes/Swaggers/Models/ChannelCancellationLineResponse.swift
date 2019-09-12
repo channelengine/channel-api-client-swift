@@ -16,6 +16,10 @@ public struct ChannelCancellationLineResponse: Codable {
     /** Quantity of the product to cancel */
     public var quantity: Int
 
+    public init(channelProductNo: String, quantity: Int) {
+        self.channelProductNo = channelProductNo
+        self.quantity = quantity
+    }
 
     public enum CodingKeys: String, CodingKey { 
         case channelProductNo = "ChannelProductNo"
