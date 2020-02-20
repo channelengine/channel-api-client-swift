@@ -63,10 +63,11 @@ open class ProductAPI {
      Acknowledge Product Offer Changes
      
      - parameter changes: (body) The channel references of the updated products 
+     - parameter keyIsMpn: (query) If set to true, changes has to be a list of merchant references instead of channel references (optional, default to false)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func productAcknowledgeOfferChanges(changes: [String], completion: @escaping ((_ data: ApiResponse?,_ error: Error?) -> Void)) {
-        productAcknowledgeOfferChangesWithRequestBuilder(changes: changes).execute { (response, error) -> Void in
+    open class func productAcknowledgeOfferChanges(changes: [String], keyIsMpn: Bool? = nil, completion: @escaping ((_ data: ApiResponse?,_ error: Error?) -> Void)) {
+        productAcknowledgeOfferChangesWithRequestBuilder(changes: changes, keyIsMpn: keyIsMpn).execute { (response, error) -> Void in
             completion(response?.body, error)
         }
     }
@@ -75,7 +76,7 @@ open class ProductAPI {
     /**
      Acknowledge Product Offer Changes
      - POST /v2/products/offers
-     - After a call to GET 'v2/products/offers' this endpoint should be called with the  ChannelReturnNo of the products that are successfully updated.  Please see 'v2/products/data' and 'v2/products/data' for documentation.
+     - After a call to GET 'v2/products/offers' this endpoint should be called with the  ChannelProductNo of the products that are successfully updated.  Please see 'v2/products/data' and 'v2/products/data' for documentation.  In advanced cases, the MerchantProductNo is used for this.   In that case, bool keyIsMpn should be true.
      - API Key:
        - type: apiKey apikey (QUERY)
        - name: apikey
@@ -90,16 +91,18 @@ open class ProductAPI {
 }}]
      
      - parameter changes: (body) The channel references of the updated products 
+     - parameter keyIsMpn: (query) If set to true, changes has to be a list of merchant references instead of channel references (optional, default to false)
 
      - returns: RequestBuilder<ApiResponse> 
      */
-    open class func productAcknowledgeOfferChangesWithRequestBuilder(changes: [String]) -> RequestBuilder<ApiResponse> {
+    open class func productAcknowledgeOfferChangesWithRequestBuilder(changes: [String], keyIsMpn: Bool? = nil) -> RequestBuilder<ApiResponse> {
         let path = "/v2/products/offers"
         let URLString = ChannelEngineChannelApiClientAPI.basePath + path
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: changes)
 
         var url = URLComponents(string: URLString)
         url?.queryItems = APIHelper.mapValuesToQueryItems([
+            "keyIsMpn": keyIsMpn
         ])
 
         let requestBuilder: RequestBuilder<ApiResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
@@ -360,10 +363,12 @@ open class ProductAPI {
   },
   "Content" : [ {
     "Price" : 0.80082819046101150206595775671303272247314453125,
+    "MerchantProductNo" : "MerchantProductNo",
     "Stock" : 6,
     "ChannelProductNo" : "ChannelProductNo"
   }, {
     "Price" : 0.80082819046101150206595775671303272247314453125,
+    "MerchantProductNo" : "MerchantProductNo",
     "Stock" : 6,
     "ChannelProductNo" : "ChannelProductNo"
   } ],

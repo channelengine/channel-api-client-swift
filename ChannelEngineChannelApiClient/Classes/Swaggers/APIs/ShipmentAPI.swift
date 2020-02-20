@@ -12,13 +12,26 @@ import Alamofire
 
 open class ShipmentAPI {
     /**
+     * enum for parameter statuses
+     */
+    public enum Statuses_shipmentIndex: String { 
+        case pending = "PENDING"
+        case closed = "CLOSED"
+    }
+
+    /**
      Get Shipments
      
-     - parameter createdSince: (query)  (optional)
+     - parameter createdSince: (query) Deprecated, please use FromDate instead. (optional)
+     - parameter statuses: (query) Shipment status(es) to filter on (optional)
+     - parameter fromDate: (query) Filter on the creation date, starting from this date. This date is inclusive. (optional)
+     - parameter toDate: (query) Filter on the creation date, until this date. This date is exclusive. (optional)
+     - parameter channelOrderNos: (query) Filter on the unique references (ids) as used by the channel. (optional)
+     - parameter page: (query) The page to filter on. Starts at 1. (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func shipmentIndex(createdSince: Date? = nil, completion: @escaping ((_ data: CollectionOfChannelShipmentResponse?,_ error: Error?) -> Void)) {
-        shipmentIndexWithRequestBuilder(createdSince: createdSince).execute { (response, error) -> Void in
+    open class func shipmentIndex(createdSince: Date? = nil, statuses: [String]? = nil, fromDate: Date? = nil, toDate: Date? = nil, channelOrderNos: [String]? = nil, page: Int? = nil, completion: @escaping ((_ data: CollectionOfChannelShipmentResponse?,_ error: Error?) -> Void)) {
+        shipmentIndexWithRequestBuilder(createdSince: createdSince, statuses: statuses, fromDate: fromDate, toDate: toDate, channelOrderNos: channelOrderNos, page: page).execute { (response, error) -> Void in
             completion(response?.body, error)
         }
     }
@@ -73,18 +86,28 @@ open class ShipmentAPI {
   "Success" : true
 }}]
      
-     - parameter createdSince: (query)  (optional)
+     - parameter createdSince: (query) Deprecated, please use FromDate instead. (optional)
+     - parameter statuses: (query) Shipment status(es) to filter on (optional)
+     - parameter fromDate: (query) Filter on the creation date, starting from this date. This date is inclusive. (optional)
+     - parameter toDate: (query) Filter on the creation date, until this date. This date is exclusive. (optional)
+     - parameter channelOrderNos: (query) Filter on the unique references (ids) as used by the channel. (optional)
+     - parameter page: (query) The page to filter on. Starts at 1. (optional)
 
      - returns: RequestBuilder<CollectionOfChannelShipmentResponse> 
      */
-    open class func shipmentIndexWithRequestBuilder(createdSince: Date? = nil) -> RequestBuilder<CollectionOfChannelShipmentResponse> {
+    open class func shipmentIndexWithRequestBuilder(createdSince: Date? = nil, statuses: [String]? = nil, fromDate: Date? = nil, toDate: Date? = nil, channelOrderNos: [String]? = nil, page: Int? = nil) -> RequestBuilder<CollectionOfChannelShipmentResponse> {
         let path = "/v2/shipments"
         let URLString = ChannelEngineChannelApiClientAPI.basePath + path
         let parameters: [String:Any]? = nil
         
         var url = URLComponents(string: URLString)
         url?.queryItems = APIHelper.mapValuesToQueryItems([
-            "createdSince": createdSince?.encodeToJSON()
+            "createdSince": createdSince?.encodeToJSON(), 
+            "statuses": statuses, 
+            "fromDate": fromDate?.encodeToJSON(), 
+            "toDate": toDate?.encodeToJSON(), 
+            "channelOrderNos": channelOrderNos, 
+            "page": page?.encodeToJSON()
         ])
 
         let requestBuilder: RequestBuilder<CollectionOfChannelShipmentResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()

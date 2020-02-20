@@ -21,8 +21,10 @@ public struct ChannelOrderLineRequest: Codable {
         case unknown = "UNKNOWN"
         case usedVeryGood = "USED_VERY_GOOD"
     }
-    /** The unique order reference used by the channel */
+    /** The unique product reference used by the channel */
     public var channelProductNo: String
+    /** The unique product reference used by the merchant */
+    public var merchantProductNo: String?
     /** The number of items of the product */
     public var quantity: Int
     /** The number of items for which cancellation was requested by the customer.  Some channels allow a customer to cancel an order until it has been shipped.  When an order has already been acknowledged in ChannelEngine, it can only be cancelled by creating a cancellation.  Use this field to check whether it is still possible to cancel the order. If this is the case, submit a cancellation to ChannelEngine */
@@ -36,8 +38,9 @@ public struct ChannelOrderLineRequest: Codable {
     /** The condition of the product, this can be used to indicate that a product is a second-hand product */
     public var condition: Condition?
 
-    public init(channelProductNo: String, quantity: Int, cancellationRequestedQuantity: Int?, unitPriceInclVat: Double, feeFixed: Double?, feeRate: Double?, condition: Condition?) {
+    public init(channelProductNo: String, merchantProductNo: String?, quantity: Int, cancellationRequestedQuantity: Int?, unitPriceInclVat: Double, feeFixed: Double?, feeRate: Double?, condition: Condition?) {
         self.channelProductNo = channelProductNo
+        self.merchantProductNo = merchantProductNo
         self.quantity = quantity
         self.cancellationRequestedQuantity = cancellationRequestedQuantity
         self.unitPriceInclVat = unitPriceInclVat
@@ -48,6 +51,7 @@ public struct ChannelOrderLineRequest: Codable {
 
     public enum CodingKeys: String, CodingKey { 
         case channelProductNo = "ChannelProductNo"
+        case merchantProductNo = "MerchantProductNo"
         case quantity = "Quantity"
         case cancellationRequestedQuantity = "CancellationRequestedQuantity"
         case unitPriceInclVat = "UnitPriceInclVat"

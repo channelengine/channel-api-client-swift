@@ -19,6 +19,8 @@ public struct ChannelOrderRequest: Codable {
     public var channelOrderNo: String
     /** Optional. Is a business order (default value is false).  If not provided the VAT Number will be checked. If a VAT Number is found, IsBusinessOrder will be set to true.  No VAT will be calculated when set to true. */
     public var isBusinessOrder: Bool?
+    /** Optional. Is the MPN used as key for the product (default value is false). */
+    public var keyIsMerchantProductNo: Bool?
     /** The order lines */
     public var lines: [ChannelOrderLineRequest]
     /** The customer&#39;s telephone number */
@@ -35,18 +37,19 @@ public struct ChannelOrderRequest: Codable {
     public var shippingCostsInclVat: Double
     /** The currency code for the amounts of the order */
     public var currencyCode: String
-    /** The date the order was done */
+    /** The date the order was created at the channel */
     public var orderDate: Date
     /** The unique customer reference used by the channel */
     public var channelCustomerNo: String?
     /** Extra data on the order */
     public var extraData: [String:String]?
 
-    public init(billingAddress: ChannelAddressRequest, shippingAddress: ChannelAddressRequest, channelOrderNo: String, isBusinessOrder: Bool?, lines: [ChannelOrderLineRequest], phone: String?, email: String, companyRegistrationNo: String?, vatNo: String?, paymentMethod: String?, shippingCostsInclVat: Double, currencyCode: String, orderDate: Date, channelCustomerNo: String?, extraData: [String:String]?) {
+    public init(billingAddress: ChannelAddressRequest, shippingAddress: ChannelAddressRequest, channelOrderNo: String, isBusinessOrder: Bool?, keyIsMerchantProductNo: Bool?, lines: [ChannelOrderLineRequest], phone: String?, email: String, companyRegistrationNo: String?, vatNo: String?, paymentMethod: String?, shippingCostsInclVat: Double, currencyCode: String, orderDate: Date, channelCustomerNo: String?, extraData: [String:String]?) {
         self.billingAddress = billingAddress
         self.shippingAddress = shippingAddress
         self.channelOrderNo = channelOrderNo
         self.isBusinessOrder = isBusinessOrder
+        self.keyIsMerchantProductNo = keyIsMerchantProductNo
         self.lines = lines
         self.phone = phone
         self.email = email
@@ -65,6 +68,7 @@ public struct ChannelOrderRequest: Codable {
         case shippingAddress = "ShippingAddress"
         case channelOrderNo = "ChannelOrderNo"
         case isBusinessOrder = "IsBusinessOrder"
+        case keyIsMerchantProductNo = "KeyIsMerchantProductNo"
         case lines = "Lines"
         case phone = "Phone"
         case email = "Email"

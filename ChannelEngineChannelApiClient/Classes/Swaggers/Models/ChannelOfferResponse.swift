@@ -13,17 +13,20 @@ public struct ChannelOfferResponse: Codable {
 
     /** The unique product reference used by the Channel */
     public var channelProductNo: String?
+    public var merchantProductNo: String?
     public var price: Double?
     public var stock: Int?
 
-    public init(channelProductNo: String?, price: Double?, stock: Int?) {
+    public init(channelProductNo: String?, merchantProductNo: String?, price: Double?, stock: Int?) {
         self.channelProductNo = channelProductNo
+        self.merchantProductNo = merchantProductNo
         self.price = price
         self.stock = stock
     }
 
     public enum CodingKeys: String, CodingKey { 
         case channelProductNo = "ChannelProductNo"
+        case merchantProductNo = "MerchantProductNo"
         case price = "Price"
         case stock = "Stock"
     }
