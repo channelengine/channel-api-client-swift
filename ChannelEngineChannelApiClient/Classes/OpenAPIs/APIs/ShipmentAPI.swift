@@ -14,7 +14,7 @@ open class ShipmentAPI {
      Get Shipments.
      
      - parameter createdSince: (query) Deprecated, please use FromDate instead. (optional)
-     - parameter statuses: (query) Shipment status(es) to filter on. (optional)
+     - parameter statuses: (query) Deprecated, shipment status(es) to filter on. (optional)
      - parameter fromDate: (query) Filter on the creation date, starting from this date. This date is inclusive. (optional)
      - parameter toDate: (query) Filter on the creation date, until this date. This date is exclusive. (optional)
      - parameter channelOrderNos: (query) Filter on the unique references (ids) as used by the channel. (optional)
@@ -36,12 +36,12 @@ open class ShipmentAPI {
     /**
      Get Shipments.
      - GET /v2/shipments
-     - Gets all shipments created since the supplied date.
+     - Gets all shipments created since the supplied date with status CLOSED.
      - API Key:
        - type: apiKey apikey (QUERY)
        - name: apiKey
      - parameter createdSince: (query) Deprecated, please use FromDate instead. (optional)
-     - parameter statuses: (query) Shipment status(es) to filter on. (optional)
+     - parameter statuses: (query) Deprecated, shipment status(es) to filter on. (optional)
      - parameter fromDate: (query) Filter on the creation date, starting from this date. This date is inclusive. (optional)
      - parameter toDate: (query) Filter on the creation date, until this date. This date is exclusive. (optional)
      - parameter channelOrderNos: (query) Filter on the unique references (ids) as used by the channel. (optional)
@@ -64,6 +64,49 @@ open class ShipmentAPI {
         ])
 
         let requestBuilder: RequestBuilder<CollectionOfChannelShipmentResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+    }
+
+    /**
+     Download shipping label.
+     
+     - parameter merchantShipmentNo: (path) The unique shipment reference as used by the merchant. 
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func shipmentShippingLabel(merchantShipmentNo: String, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?,_ error: Error?) -> Void)) {
+        shipmentShippingLabelWithRequestBuilder(merchantShipmentNo: merchantShipmentNo).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Download shipping label.
+     - GET /v2/orders/{merchantShipmentNo}/shippinglabel
+     - Downloads the shipping label for the shipment
+     - API Key:
+       - type: apiKey apikey (QUERY)
+       - name: apiKey
+     - parameter merchantShipmentNo: (path) The unique shipment reference as used by the merchant. 
+     - returns: RequestBuilder<URL> 
+     */
+    open class func shipmentShippingLabelWithRequestBuilder(merchantShipmentNo: String) -> RequestBuilder<URL> {
+        var path = "/v2/orders/{merchantShipmentNo}/shippinglabel"
+        let merchantShipmentNoPreEscape = "\(APIHelper.mapValueToPathItem(merchantShipmentNo))"
+        let merchantShipmentNoPostEscape = merchantShipmentNoPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{merchantShipmentNo}", with: merchantShipmentNoPostEscape, options: .literal, range: nil)
+        let URLString = ChannelEngineChannelApiClientAPI.basePath + path
+        let parameters: [String:Any]? = nil
+        
+        let url = URLComponents(string: URLString)
+
+        let requestBuilder: RequestBuilder<URL>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
     }

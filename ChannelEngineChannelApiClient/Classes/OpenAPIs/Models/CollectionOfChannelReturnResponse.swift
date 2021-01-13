@@ -12,11 +12,8 @@ public struct CollectionOfChannelReturnResponse: Codable {
 
 
     public var content: [ChannelReturnResponse]?
-    /** The number of items in the current response. */
     public var count: Int?
-    /** The total number of items. */
     public var totalCount: Int?
-    /** The number of items per page. */
     public var itemsPerPage: Int?
     public var statusCode: Int?
     public var logId: Int?
