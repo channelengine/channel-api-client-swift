@@ -6,10 +6,9 @@
 //
 
 import Foundation
+import AnyCodable
 
-
-public struct ChannelReturnRequest: Codable { 
-
+public struct ChannelReturnRequest: Codable, Hashable {
 
     /** The unique order reference used by the Channel. */
     public var channelOrderNo: String?
@@ -48,8 +47,7 @@ public struct ChannelReturnRequest: Codable {
         self.refundInclVat = refundInclVat
         self.refundExclVat = refundExclVat
     }
-
-    public enum CodingKeys: String, CodingKey, CaseIterable { 
+    public enum CodingKeys: String, CodingKey, CaseIterable {
         case channelOrderNo = "ChannelOrderNo"
         case merchantOrderNo = "MerchantOrderNo"
         case channelReference = "ChannelReference"
@@ -63,5 +61,25 @@ public struct ChannelReturnRequest: Codable {
         case refundInclVat = "RefundInclVat"
         case refundExclVat = "RefundExclVat"
     }
+
+    // Encodable protocol methods
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(channelOrderNo, forKey: .channelOrderNo)
+        try container.encodeIfPresent(merchantOrderNo, forKey: .merchantOrderNo)
+        try container.encode(channelReference, forKey: .channelReference)
+        try container.encodeIfPresent(keyIsMerchantOrderNo, forKey: .keyIsMerchantOrderNo)
+        try container.encodeIfPresent(keyIsMerchantProductNo, forKey: .keyIsMerchantProductNo)
+        try container.encode(lines, forKey: .lines)
+        try container.encodeIfPresent(id, forKey: .id)
+        try container.encodeIfPresent(reason, forKey: .reason)
+        try container.encodeIfPresent(customerComment, forKey: .customerComment)
+        try container.encodeIfPresent(merchantComment, forKey: .merchantComment)
+        try container.encodeIfPresent(refundInclVat, forKey: .refundInclVat)
+        try container.encodeIfPresent(refundExclVat, forKey: .refundExclVat)
+    }
+
+
 
 }

@@ -6,10 +6,9 @@
 //
 
 import Foundation
+import AnyCodable
 
-
-public struct ChannelProductReferencesRequest: Codable { 
-
+public struct ChannelProductReferencesRequest: Codable, Hashable {
 
     /** The unique ChannelEngine product ID. */
     public var id: Int?
@@ -20,10 +19,19 @@ public struct ChannelProductReferencesRequest: Codable {
         self.id = id
         self.channelProductNo = channelProductNo
     }
-
-    public enum CodingKeys: String, CodingKey, CaseIterable { 
+    public enum CodingKeys: String, CodingKey, CaseIterable {
         case id = "Id"
         case channelProductNo = "ChannelProductNo"
     }
+
+    // Encodable protocol methods
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(id, forKey: .id)
+        try container.encodeIfPresent(channelProductNo, forKey: .channelProductNo)
+    }
+
+
 
 }

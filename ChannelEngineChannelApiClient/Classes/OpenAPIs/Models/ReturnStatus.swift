@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import AnyCodable
 
 public enum ReturnStatus: String, Codable, CaseIterable {
     case inProgress = "IN_PROGRESS"

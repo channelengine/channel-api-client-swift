@@ -7,8 +7,6 @@
 
 import Foundation
 
-
-
 open class ProductAPI {
     /**
      Acknowledge Product Data Changes.
@@ -17,7 +15,7 @@ open class ProductAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func productAcknowledgeDataChanges(channelProcessedChangesRequest: ChannelProcessedChangesRequest? = nil, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: ApiResponse?,_ error: Error?) -> Void)) {
+    open class func productAcknowledgeDataChanges(channelProcessedChangesRequest: ChannelProcessedChangesRequest? = nil, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: ApiResponse?, _ error: Error?) -> Void)) {
         productAcknowledgeDataChangesWithRequestBuilder(channelProcessedChangesRequest: channelProcessedChangesRequest).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
@@ -43,11 +41,17 @@ open class ProductAPI {
         let URLString = ChannelEngineChannelApiClientAPI.basePath + path
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: channelProcessedChangesRequest)
 
-        let url = URLComponents(string: URLString)
+        let urlComponents = URLComponents(string: URLString)
+
+        let nillableHeaders: [String: Any?] = [
+            :
+        ]
+
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
 
         let requestBuilder: RequestBuilder<ApiResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
     }
 
     /**
@@ -58,7 +62,7 @@ open class ProductAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func productAcknowledgeOfferChanges(keyIsMpn: Bool? = nil, requestBody: [String]? = nil, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: ApiResponse?,_ error: Error?) -> Void)) {
+    open class func productAcknowledgeOfferChanges(keyIsMpn: Bool? = nil, requestBody: [String]? = nil, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: ApiResponse?, _ error: Error?) -> Void)) {
         productAcknowledgeOfferChangesWithRequestBuilder(keyIsMpn: keyIsMpn, requestBody: requestBody).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
@@ -85,14 +89,20 @@ open class ProductAPI {
         let URLString = ChannelEngineChannelApiClientAPI.basePath + path
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: requestBody)
 
-        var url = URLComponents(string: URLString)
-        url?.queryItems = APIHelper.mapValuesToQueryItems([
-            "keyIsMpn": keyIsMpn?.encodeToJSON()
+        var urlComponents = URLComponents(string: URLString)
+        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "keyIsMpn": keyIsMpn?.encodeToJSON(),
         ])
+
+        let nillableHeaders: [String: Any?] = [
+            :
+        ]
+
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
 
         let requestBuilder: RequestBuilder<ApiResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
     }
 
     /**
@@ -103,7 +113,7 @@ open class ProductAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func productGetDataChanges(maxCount: Int? = nil, stripHtml: Bool? = nil, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: SingleOfChannelProductChangesResponse?,_ error: Error?) -> Void)) {
+    open class func productGetDataChanges(maxCount: Int? = nil, stripHtml: Bool? = nil, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: SingleOfChannelProductChangesResponse?, _ error: Error?) -> Void)) {
         productGetDataChangesWithRequestBuilder(maxCount: maxCount, stripHtml: stripHtml).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
@@ -128,17 +138,77 @@ open class ProductAPI {
     open class func productGetDataChangesWithRequestBuilder(maxCount: Int? = nil, stripHtml: Bool? = nil) -> RequestBuilder<SingleOfChannelProductChangesResponse> {
         let path = "/v2/products/data"
         let URLString = ChannelEngineChannelApiClientAPI.basePath + path
-        let parameters: [String:Any]? = nil
-        
-        var url = URLComponents(string: URLString)
-        url?.queryItems = APIHelper.mapValuesToQueryItems([
-            "maxCount": maxCount?.encodeToJSON(), 
-            "stripHtml": stripHtml?.encodeToJSON()
+        let parameters: [String: Any]? = nil
+
+        var urlComponents = URLComponents(string: URLString)
+        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "maxCount": maxCount?.encodeToJSON(),
+            "stripHtml": stripHtml?.encodeToJSON(),
         ])
+
+        let nillableHeaders: [String: Any?] = [
+            :
+        ]
+
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
 
         let requestBuilder: RequestBuilder<SingleOfChannelProductChangesResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+    }
+
+    /**
+     Get Product Data Changes with an optional product type filter. If you select product type products will be filtered by it.  If you won't pass product type you will get products with types: CHILD, PARENT, GRANDPARENT, SINGLE
+     
+     - parameter productType: (query) Optional - Type of products (optional)
+     - parameter maxCount: (query) Optional - limit the amount of products returned for each field&lt;br /&gt; (ToBeCreated, ToBeUpdated, ToBeRemoved) to this number. (optional)
+     - parameter stripHtml: (query) Optional - strips html by default on all fields (optional, default to true)
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func productGetDataChangesFull(productType: DataChangesProductType? = nil, maxCount: Int? = nil, stripHtml: Bool? = nil, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: SingleOfChannelProductChangesResponse?, _ error: Error?) -> Void)) {
+        productGetDataChangesFullWithRequestBuilder(productType: productType, maxCount: maxCount, stripHtml: stripHtml).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Get Product Data Changes with an optional product type filter. If you select product type products will be filtered by it.  If you won't pass product type you will get products with types: CHILD, PARENT, GRANDPARENT, SINGLE
+     - GET /v2/products/data/full
+     - API Key:
+       - type: apiKey apikey (QUERY)
+       - name: apiKey
+     - parameter productType: (query) Optional - Type of products (optional)
+     - parameter maxCount: (query) Optional - limit the amount of products returned for each field&lt;br /&gt; (ToBeCreated, ToBeUpdated, ToBeRemoved) to this number. (optional)
+     - parameter stripHtml: (query) Optional - strips html by default on all fields (optional, default to true)
+     - returns: RequestBuilder<SingleOfChannelProductChangesResponse> 
+     */
+    open class func productGetDataChangesFullWithRequestBuilder(productType: DataChangesProductType? = nil, maxCount: Int? = nil, stripHtml: Bool? = nil) -> RequestBuilder<SingleOfChannelProductChangesResponse> {
+        let path = "/v2/products/data/full"
+        let URLString = ChannelEngineChannelApiClientAPI.basePath + path
+        let parameters: [String: Any]? = nil
+
+        var urlComponents = URLComponents(string: URLString)
+        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "productType": productType?.encodeToJSON(),
+            "maxCount": maxCount?.encodeToJSON(),
+            "stripHtml": stripHtml?.encodeToJSON(),
+        ])
+
+        let nillableHeaders: [String: Any?] = [
+            :
+        ]
+
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+
+        let requestBuilder: RequestBuilder<SingleOfChannelProductChangesResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
     }
 
     /**
@@ -147,7 +217,7 @@ open class ProductAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func productGetOfferChanges(apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: CollectionOfChannelOfferResponse?,_ error: Error?) -> Void)) {
+    open class func productGetOfferChanges(apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: CollectionOfChannelOfferResponse?, _ error: Error?) -> Void)) {
         productGetOfferChangesWithRequestBuilder().execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
@@ -170,13 +240,19 @@ open class ProductAPI {
     open class func productGetOfferChangesWithRequestBuilder() -> RequestBuilder<CollectionOfChannelOfferResponse> {
         let path = "/v2/products/offers"
         let URLString = ChannelEngineChannelApiClientAPI.basePath + path
-        let parameters: [String:Any]? = nil
-        
-        let url = URLComponents(string: URLString)
+        let parameters: [String: Any]? = nil
+
+        let urlComponents = URLComponents(string: URLString)
+
+        let nillableHeaders: [String: Any?] = [
+            :
+        ]
+
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
 
         let requestBuilder: RequestBuilder<CollectionOfChannelOfferResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
     }
 
 }

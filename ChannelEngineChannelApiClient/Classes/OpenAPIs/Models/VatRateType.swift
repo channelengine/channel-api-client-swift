@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import AnyCodable
 
 public enum VatRateType: String, Codable, CaseIterable {
     case standard = "STANDARD"

@@ -7,8 +7,6 @@
 
 import Foundation
 
-
-
 open class ShipmentAPI {
     /**
      Get Shipments.
@@ -22,7 +20,7 @@ open class ShipmentAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func shipmentIndex(createdSince: Date? = nil, statuses: [ShipmentStatus]? = nil, fromDate: Date? = nil, toDate: Date? = nil, channelOrderNos: [String]? = nil, page: Int? = nil, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: CollectionOfChannelShipmentResponse?,_ error: Error?) -> Void)) {
+    open class func shipmentIndex(createdSince: Date? = nil, statuses: [ShipmentStatus]? = nil, fromDate: Date? = nil, toDate: Date? = nil, channelOrderNos: [String]? = nil, page: Int? = nil, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: CollectionOfChannelShipmentResponse?, _ error: Error?) -> Void)) {
         shipmentIndexWithRequestBuilder(createdSince: createdSince, statuses: statuses, fromDate: fromDate, toDate: toDate, channelOrderNos: channelOrderNos, page: page).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
@@ -51,21 +49,27 @@ open class ShipmentAPI {
     open class func shipmentIndexWithRequestBuilder(createdSince: Date? = nil, statuses: [ShipmentStatus]? = nil, fromDate: Date? = nil, toDate: Date? = nil, channelOrderNos: [String]? = nil, page: Int? = nil) -> RequestBuilder<CollectionOfChannelShipmentResponse> {
         let path = "/v2/shipments"
         let URLString = ChannelEngineChannelApiClientAPI.basePath + path
-        let parameters: [String:Any]? = nil
-        
-        var url = URLComponents(string: URLString)
-        url?.queryItems = APIHelper.mapValuesToQueryItems([
-            "createdSince": createdSince?.encodeToJSON(), 
-            "statuses": statuses?.encodeToJSON(), 
-            "fromDate": fromDate?.encodeToJSON(), 
-            "toDate": toDate?.encodeToJSON(), 
-            "channelOrderNos": channelOrderNos?.encodeToJSON(), 
-            "page": page?.encodeToJSON()
+        let parameters: [String: Any]? = nil
+
+        var urlComponents = URLComponents(string: URLString)
+        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "createdSince": createdSince?.encodeToJSON(),
+            "statuses": statuses?.encodeToJSON(),
+            "fromDate": fromDate?.encodeToJSON(),
+            "toDate": toDate?.encodeToJSON(),
+            "channelOrderNos": channelOrderNos?.encodeToJSON(),
+            "page": page?.encodeToJSON(),
         ])
+
+        let nillableHeaders: [String: Any?] = [
+            :
+        ]
+
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
 
         let requestBuilder: RequestBuilder<CollectionOfChannelShipmentResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
     }
 
     /**
@@ -75,7 +79,7 @@ open class ShipmentAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func shipmentShippingLabel(merchantShipmentNo: String, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?,_ error: Error?) -> Void)) {
+    open class func shipmentShippingLabel(merchantShipmentNo: String, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
         shipmentShippingLabelWithRequestBuilder(merchantShipmentNo: merchantShipmentNo).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
@@ -102,13 +106,19 @@ open class ShipmentAPI {
         let merchantShipmentNoPostEscape = merchantShipmentNoPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         path = path.replacingOccurrences(of: "{merchantShipmentNo}", with: merchantShipmentNoPostEscape, options: .literal, range: nil)
         let URLString = ChannelEngineChannelApiClientAPI.basePath + path
-        let parameters: [String:Any]? = nil
-        
-        let url = URLComponents(string: URLString)
+        let parameters: [String: Any]? = nil
+
+        let urlComponents = URLComponents(string: URLString)
+
+        let nillableHeaders: [String: Any?] = [
+            :
+        ]
+
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
 
         let requestBuilder: RequestBuilder<URL>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
     }
 
 }

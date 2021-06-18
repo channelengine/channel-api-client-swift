@@ -3,12 +3,13 @@ targets:
   ChannelEngineChannelApiClient:
     type: framework
     platform: iOS
-    deploymentTarget: "10.0"
+    deploymentTarget: "9.0"
     sources: [ChannelEngineChannelApiClient]
     info:
       path: ./Info.plist
-      version: 2.9.4
+      version: 2.9.7
     settings:
       APPLICATION_EXTENSION_API_ONLY: true
     scheme: {}
     
+    - carthage: AnyCodable

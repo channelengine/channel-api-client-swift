@@ -6,17 +6,18 @@
 //
 
 import Foundation
+import AnyCodable
 
-
-public struct ChannelProductResponse: Codable { 
-
+public struct ChannelProductResponse: Codable, Hashable {
 
     /** An unique identifier which ChannelEngine uses to identify the product.  Needed in the call &#39;POST /v2/products/data&#39;. */
     public var id: Int?
     /** The unique product reference used by the Channel for the parent product. */
     public var parentChannelProductNo: String?
+    /** The unique product reference used by the Channel for the grandparent product. */
+    public var grandparentChannelProductNo: String?
     /** A channel can require certain fields to be available. The channel  can provide ChannelEngine with this fields after which the merchants  will be able to fill in this field using custom conditions in ChannelEngine. */
-    public var mappedFields: [String:String]?
+    public var mappedFields: [String: String]?
     /** An optional list of key-value pairs containing  extra data about this product. This data can be  sent to channels or used for filtering products. */
     public var extraData: [ChannelProductExtraDataItemResponse]?
     /** The name of the product. */
@@ -71,9 +72,10 @@ public struct ChannelProductResponse: Codable {
     /** The category to which this product belongs.  Please supply this field in the following format:  &#39;maincategory &gt; category &gt; subcategory&#39;  For example:  &#39;vehicles &gt; bikes &gt; mountainbike&#39;. */
     public var categoryTrail: String?
 
-    public init(id: Int? = nil, parentChannelProductNo: String? = nil, mappedFields: [String:String]? = nil, extraData: [ChannelProductExtraDataItemResponse]? = nil, name: String? = nil, description: String? = nil, brand: String? = nil, size: String? = nil, color: String? = nil, ean: String? = nil, manufacturerProductNumber: String? = nil, stock: Int? = nil, price: Double? = nil, MSRP: Double? = nil, purchasePrice: Double? = nil, vatRateType: VatRateType? = nil, shippingCost: Double? = nil, shippingTime: String? = nil, url: String? = nil, imageUrl: String? = nil, extraImageUrl1: String? = nil, extraImageUrl2: String? = nil, extraImageUrl3: String? = nil, extraImageUrl4: String? = nil, extraImageUrl5: String? = nil, extraImageUrl6: String? = nil, extraImageUrl7: String? = nil, extraImageUrl8: String? = nil, extraImageUrl9: String? = nil, categoryTrail: String? = nil) {
+    public init(id: Int? = nil, parentChannelProductNo: String? = nil, grandparentChannelProductNo: String? = nil, mappedFields: [String: String]? = nil, extraData: [ChannelProductExtraDataItemResponse]? = nil, name: String? = nil, description: String? = nil, brand: String? = nil, size: String? = nil, color: String? = nil, ean: String? = nil, manufacturerProductNumber: String? = nil, stock: Int? = nil, price: Double? = nil, MSRP: Double? = nil, purchasePrice: Double? = nil, vatRateType: VatRateType? = nil, shippingCost: Double? = nil, shippingTime: String? = nil, url: String? = nil, imageUrl: String? = nil, extraImageUrl1: String? = nil, extraImageUrl2: String? = nil, extraImageUrl3: String? = nil, extraImageUrl4: String? = nil, extraImageUrl5: String? = nil, extraImageUrl6: String? = nil, extraImageUrl7: String? = nil, extraImageUrl8: String? = nil, extraImageUrl9: String? = nil, categoryTrail: String? = nil) {
         self.id = id
         self.parentChannelProductNo = parentChannelProductNo
+        self.grandparentChannelProductNo = grandparentChannelProductNo
         self.mappedFields = mappedFields
         self.extraData = extraData
         self.name = name
@@ -103,10 +105,10 @@ public struct ChannelProductResponse: Codable {
         self.extraImageUrl9 = extraImageUrl9
         self.categoryTrail = categoryTrail
     }
-
-    public enum CodingKeys: String, CodingKey, CaseIterable { 
+    public enum CodingKeys: String, CodingKey, CaseIterable {
         case id = "Id"
         case parentChannelProductNo = "ParentChannelProductNo"
+        case grandparentChannelProductNo = "GrandparentChannelProductNo"
         case mappedFields = "MappedFields"
         case extraData = "ExtraData"
         case name = "Name"
@@ -136,5 +138,44 @@ public struct ChannelProductResponse: Codable {
         case extraImageUrl9 = "ExtraImageUrl9"
         case categoryTrail = "CategoryTrail"
     }
+
+    // Encodable protocol methods
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(id, forKey: .id)
+        try container.encodeIfPresent(parentChannelProductNo, forKey: .parentChannelProductNo)
+        try container.encodeIfPresent(grandparentChannelProductNo, forKey: .grandparentChannelProductNo)
+        try container.encodeIfPresent(mappedFields, forKey: .mappedFields)
+        try container.encodeIfPresent(extraData, forKey: .extraData)
+        try container.encodeIfPresent(name, forKey: .name)
+        try container.encodeIfPresent(description, forKey: .description)
+        try container.encodeIfPresent(brand, forKey: .brand)
+        try container.encodeIfPresent(size, forKey: .size)
+        try container.encodeIfPresent(color, forKey: .color)
+        try container.encodeIfPresent(ean, forKey: .ean)
+        try container.encodeIfPresent(manufacturerProductNumber, forKey: .manufacturerProductNumber)
+        try container.encodeIfPresent(stock, forKey: .stock)
+        try container.encodeIfPresent(price, forKey: .price)
+        try container.encodeIfPresent(MSRP, forKey: .MSRP)
+        try container.encodeIfPresent(purchasePrice, forKey: .purchasePrice)
+        try container.encodeIfPresent(vatRateType, forKey: .vatRateType)
+        try container.encodeIfPresent(shippingCost, forKey: .shippingCost)
+        try container.encodeIfPresent(shippingTime, forKey: .shippingTime)
+        try container.encodeIfPresent(url, forKey: .url)
+        try container.encodeIfPresent(imageUrl, forKey: .imageUrl)
+        try container.encodeIfPresent(extraImageUrl1, forKey: .extraImageUrl1)
+        try container.encodeIfPresent(extraImageUrl2, forKey: .extraImageUrl2)
+        try container.encodeIfPresent(extraImageUrl3, forKey: .extraImageUrl3)
+        try container.encodeIfPresent(extraImageUrl4, forKey: .extraImageUrl4)
+        try container.encodeIfPresent(extraImageUrl5, forKey: .extraImageUrl5)
+        try container.encodeIfPresent(extraImageUrl6, forKey: .extraImageUrl6)
+        try container.encodeIfPresent(extraImageUrl7, forKey: .extraImageUrl7)
+        try container.encodeIfPresent(extraImageUrl8, forKey: .extraImageUrl8)
+        try container.encodeIfPresent(extraImageUrl9, forKey: .extraImageUrl9)
+        try container.encodeIfPresent(categoryTrail, forKey: .categoryTrail)
+    }
+
+
 
 }

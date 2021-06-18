@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import AnyCodable
 
 public enum MancoReason: String, Codable, CaseIterable {
     case notInStock = "NOT_IN_STOCK"

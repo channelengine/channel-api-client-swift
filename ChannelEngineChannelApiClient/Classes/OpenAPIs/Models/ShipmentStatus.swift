@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import AnyCodable
 
 public enum ShipmentStatus: String, Codable, CaseIterable {
     case pending = "PENDING"

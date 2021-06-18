@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import AnyCodable
 
 public enum ReturnReason: String, Codable, CaseIterable {
     case productDefect = "PRODUCT_DEFECT"

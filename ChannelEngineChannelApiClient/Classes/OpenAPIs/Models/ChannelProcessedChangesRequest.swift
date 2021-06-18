@@ -6,10 +6,9 @@
 //
 
 import Foundation
+import AnyCodable
 
-
-public struct ChannelProcessedChangesRequest: Codable { 
-
+public struct ChannelProcessedChangesRequest: Codable, Hashable {
 
     /** A collection of pairs of merchant and channel references  of the products which are successfully created. The channel references  are saved such that in subsequent calls these can be used instead of the  merchant references. */
     public var created: [ChannelProductReferencesRequest]?
@@ -23,11 +22,21 @@ public struct ChannelProcessedChangesRequest: Codable {
         self.updated = updated
         self.removed = removed
     }
-
-    public enum CodingKeys: String, CodingKey, CaseIterable { 
+    public enum CodingKeys: String, CodingKey, CaseIterable {
         case created = "Created"
         case updated = "Updated"
         case removed = "Removed"
     }
+
+    // Encodable protocol methods
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(created, forKey: .created)
+        try container.encodeIfPresent(updated, forKey: .updated)
+        try container.encodeIfPresent(removed, forKey: .removed)
+    }
+
+
 
 }

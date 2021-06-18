@@ -6,10 +6,9 @@
 //
 
 import Foundation
+import AnyCodable
 
-
-public struct ChannelCancellationResponse: Codable { 
-
+public struct ChannelCancellationResponse: Codable, Hashable {
 
     /** The unique order reference used by the Channel. */
     public var channelOrderNo: String
@@ -30,8 +29,7 @@ public struct ChannelCancellationResponse: Codable {
         self.reason = reason
         self.reasonCode = reasonCode
     }
-
-    public enum CodingKeys: String, CodingKey, CaseIterable { 
+    public enum CodingKeys: String, CodingKey, CaseIterable {
         case channelOrderNo = "ChannelOrderNo"
         case lines = "Lines"
         case createdAt = "CreatedAt"
@@ -39,5 +37,19 @@ public struct ChannelCancellationResponse: Codable {
         case reason = "Reason"
         case reasonCode = "ReasonCode"
     }
+
+    // Encodable protocol methods
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(channelOrderNo, forKey: .channelOrderNo)
+        try container.encode(lines, forKey: .lines)
+        try container.encodeIfPresent(createdAt, forKey: .createdAt)
+        try container.encodeIfPresent(updatedAt, forKey: .updatedAt)
+        try container.encodeIfPresent(reason, forKey: .reason)
+        try container.encodeIfPresent(reasonCode, forKey: .reasonCode)
+    }
+
+
 
 }

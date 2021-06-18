@@ -6,10 +6,9 @@
 //
 
 import Foundation
+import AnyCodable
 
-
-public struct ChannelAddressRequest: Codable { 
-
+public struct ChannelAddressRequest: Codable, Hashable {
 
     public var gender: Gender?
     /** Optional. Company addressed too. */
@@ -49,8 +48,7 @@ public struct ChannelAddressRequest: Codable {
         self.countryIso = countryIso
         self.original = original
     }
-
-    public enum CodingKeys: String, CodingKey, CaseIterable { 
+    public enum CodingKeys: String, CodingKey, CaseIterable {
         case gender = "Gender"
         case companyName = "CompanyName"
         case firstName = "FirstName"
@@ -64,5 +62,25 @@ public struct ChannelAddressRequest: Codable {
         case countryIso = "CountryIso"
         case original = "Original"
     }
+
+    // Encodable protocol methods
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(gender, forKey: .gender)
+        try container.encodeIfPresent(companyName, forKey: .companyName)
+        try container.encodeIfPresent(firstName, forKey: .firstName)
+        try container.encodeIfPresent(lastName, forKey: .lastName)
+        try container.encodeIfPresent(streetName, forKey: .streetName)
+        try container.encodeIfPresent(houseNr, forKey: .houseNr)
+        try container.encodeIfPresent(houseNrAddition, forKey: .houseNrAddition)
+        try container.encodeIfPresent(zipCode, forKey: .zipCode)
+        try container.encodeIfPresent(city, forKey: .city)
+        try container.encodeIfPresent(region, forKey: .region)
+        try container.encodeIfPresent(countryIso, forKey: .countryIso)
+        try container.encodeIfPresent(original, forKey: .original)
+    }
+
+
 
 }

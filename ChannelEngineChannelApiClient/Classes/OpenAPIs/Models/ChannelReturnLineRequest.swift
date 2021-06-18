@@ -6,10 +6,9 @@
 //
 
 import Foundation
+import AnyCodable
 
-
-public struct ChannelReturnLineRequest: Codable { 
-
+public struct ChannelReturnLineRequest: Codable, Hashable {
 
     /** The unique product reference used by the Channel. */
     public var channelProductNo: String?
@@ -23,11 +22,21 @@ public struct ChannelReturnLineRequest: Codable {
         self.merchantProductNo = merchantProductNo
         self.quantity = quantity
     }
-
-    public enum CodingKeys: String, CodingKey, CaseIterable { 
+    public enum CodingKeys: String, CodingKey, CaseIterable {
         case channelProductNo = "ChannelProductNo"
         case merchantProductNo = "MerchantProductNo"
         case quantity = "Quantity"
     }
+
+    // Encodable protocol methods
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(channelProductNo, forKey: .channelProductNo)
+        try container.encodeIfPresent(merchantProductNo, forKey: .merchantProductNo)
+        try container.encode(quantity, forKey: .quantity)
+    }
+
+
 
 }

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import AnyCodable
 
 public enum ExtraDataType: String, Codable, CaseIterable {
     case text = "TEXT"

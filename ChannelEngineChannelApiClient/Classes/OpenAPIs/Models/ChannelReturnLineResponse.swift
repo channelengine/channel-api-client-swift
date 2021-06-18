@@ -6,10 +6,9 @@
 //
 
 import Foundation
+import AnyCodable
 
-
-public struct ChannelReturnLineResponse: Codable { 
-
+public struct ChannelReturnLineResponse: Codable, Hashable {
 
     /** The unique product reference used by the Channel. */
     public var channelProductNo: String
@@ -19,23 +18,43 @@ public struct ChannelReturnLineResponse: Codable {
     public var acceptedQuantity: Int?
     /** The number of rejected items of the product in this return (should normally not be refunded). */
     public var rejectedQuantity: Int?
+    public var orderLine: ChannelOrderLineResponse?
+    public var shipmentStatus: ShipmentLineStatus?
     /** Number of items of the product in this return. */
     public var quantity: Int
 
-    public init(channelProductNo: String, merchantProductNo: String? = nil, acceptedQuantity: Int? = nil, rejectedQuantity: Int? = nil, quantity: Int) {
+    public init(channelProductNo: String, merchantProductNo: String? = nil, acceptedQuantity: Int? = nil, rejectedQuantity: Int? = nil, orderLine: ChannelOrderLineResponse? = nil, shipmentStatus: ShipmentLineStatus? = nil, quantity: Int) {
         self.channelProductNo = channelProductNo
         self.merchantProductNo = merchantProductNo
         self.acceptedQuantity = acceptedQuantity
         self.rejectedQuantity = rejectedQuantity
+        self.orderLine = orderLine
+        self.shipmentStatus = shipmentStatus
         self.quantity = quantity
     }
-
-    public enum CodingKeys: String, CodingKey, CaseIterable { 
+    public enum CodingKeys: String, CodingKey, CaseIterable {
         case channelProductNo = "ChannelProductNo"
         case merchantProductNo = "MerchantProductNo"
         case acceptedQuantity = "AcceptedQuantity"
         case rejectedQuantity = "RejectedQuantity"
+        case orderLine = "OrderLine"
+        case shipmentStatus = "ShipmentStatus"
         case quantity = "Quantity"
     }
+
+    // Encodable protocol methods
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(channelProductNo, forKey: .channelProductNo)
+        try container.encodeIfPresent(merchantProductNo, forKey: .merchantProductNo)
+        try container.encodeIfPresent(acceptedQuantity, forKey: .acceptedQuantity)
+        try container.encodeIfPresent(rejectedQuantity, forKey: .rejectedQuantity)
+        try container.encodeIfPresent(orderLine, forKey: .orderLine)
+        try container.encodeIfPresent(shipmentStatus, forKey: .shipmentStatus)
+        try container.encode(quantity, forKey: .quantity)
+    }
+
+
 
 }

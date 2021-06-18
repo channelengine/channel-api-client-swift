@@ -7,8 +7,6 @@
 
 import Foundation
 
-
-
 open class CancellationAPI {
     /**
      Get Cancellations.
@@ -17,7 +15,7 @@ open class CancellationAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func cancellationIndex(createdSince: Date? = nil, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: CollectionOfChannelCancellationResponse?,_ error: Error?) -> Void)) {
+    open class func cancellationIndex(createdSince: Date? = nil, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: CollectionOfChannelCancellationResponse?, _ error: Error?) -> Void)) {
         cancellationIndexWithRequestBuilder(createdSince: createdSince).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
@@ -41,16 +39,22 @@ open class CancellationAPI {
     open class func cancellationIndexWithRequestBuilder(createdSince: Date? = nil) -> RequestBuilder<CollectionOfChannelCancellationResponse> {
         let path = "/v2/cancellations"
         let URLString = ChannelEngineChannelApiClientAPI.basePath + path
-        let parameters: [String:Any]? = nil
-        
-        var url = URLComponents(string: URLString)
-        url?.queryItems = APIHelper.mapValuesToQueryItems([
-            "createdSince": createdSince?.encodeToJSON()
+        let parameters: [String: Any]? = nil
+
+        var urlComponents = URLComponents(string: URLString)
+        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "createdSince": createdSince?.encodeToJSON(),
         ])
+
+        let nillableHeaders: [String: Any?] = [
+            :
+        ]
+
+        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
 
         let requestBuilder: RequestBuilder<CollectionOfChannelCancellationResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
     }
 
 }

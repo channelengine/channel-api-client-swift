@@ -6,10 +6,9 @@
 //
 
 import Foundation
+import AnyCodable
 
-
-public struct ChannelOrderLineRequest: Codable { 
-
+public struct ChannelOrderLineRequest: Codable, Hashable {
 
     /** The unique product reference used by the channel. */
     public var channelProductNo: String
@@ -40,8 +39,7 @@ public struct ChannelOrderLineRequest: Codable {
         self.condition = condition
         self.expectedDeliveryDate = expectedDeliveryDate
     }
-
-    public enum CodingKeys: String, CodingKey, CaseIterable { 
+    public enum CodingKeys: String, CodingKey, CaseIterable {
         case channelProductNo = "ChannelProductNo"
         case merchantProductNo = "MerchantProductNo"
         case quantity = "Quantity"
@@ -52,5 +50,22 @@ public struct ChannelOrderLineRequest: Codable {
         case condition = "Condition"
         case expectedDeliveryDate = "ExpectedDeliveryDate"
     }
+
+    // Encodable protocol methods
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(channelProductNo, forKey: .channelProductNo)
+        try container.encodeIfPresent(merchantProductNo, forKey: .merchantProductNo)
+        try container.encode(quantity, forKey: .quantity)
+        try container.encodeIfPresent(cancellationRequestedQuantity, forKey: .cancellationRequestedQuantity)
+        try container.encode(unitPriceInclVat, forKey: .unitPriceInclVat)
+        try container.encodeIfPresent(feeFixed, forKey: .feeFixed)
+        try container.encodeIfPresent(feeRate, forKey: .feeRate)
+        try container.encodeIfPresent(condition, forKey: .condition)
+        try container.encodeIfPresent(expectedDeliveryDate, forKey: .expectedDeliveryDate)
+    }
+
+
 
 }

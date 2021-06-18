@@ -6,10 +6,9 @@
 //
 
 import Foundation
+import AnyCodable
 
-
-public struct ChannelOrderRequest: Codable { 
-
+public struct ChannelOrderRequest: Codable, Hashable {
 
     public var billingAddress: ChannelAddressRequest
     public var shippingAddress: ChannelAddressRequest
@@ -40,9 +39,9 @@ public struct ChannelOrderRequest: Codable {
     /** The unique customer reference used by the channel. */
     public var channelCustomerNo: String?
     /** Extra data on the order. */
-    public var extraData: [String:String]?
+    public var extraData: [String: String]?
 
-    public init(billingAddress: ChannelAddressRequest, shippingAddress: ChannelAddressRequest, channelOrderNo: String, isBusinessOrder: Bool? = nil, keyIsMerchantProductNo: Bool? = nil, lines: [ChannelOrderLineRequest], phone: String? = nil, email: String, companyRegistrationNo: String? = nil, vatNo: String? = nil, paymentMethod: String? = nil, shippingCostsInclVat: Double, currencyCode: String, orderDate: Date, channelCustomerNo: String? = nil, extraData: [String:String]? = nil) {
+    public init(billingAddress: ChannelAddressRequest, shippingAddress: ChannelAddressRequest, channelOrderNo: String, isBusinessOrder: Bool? = nil, keyIsMerchantProductNo: Bool? = nil, lines: [ChannelOrderLineRequest], phone: String? = nil, email: String, companyRegistrationNo: String? = nil, vatNo: String? = nil, paymentMethod: String? = nil, shippingCostsInclVat: Double, currencyCode: String, orderDate: Date, channelCustomerNo: String? = nil, extraData: [String: String]? = nil) {
         self.billingAddress = billingAddress
         self.shippingAddress = shippingAddress
         self.channelOrderNo = channelOrderNo
@@ -60,8 +59,7 @@ public struct ChannelOrderRequest: Codable {
         self.channelCustomerNo = channelCustomerNo
         self.extraData = extraData
     }
-
-    public enum CodingKeys: String, CodingKey, CaseIterable { 
+    public enum CodingKeys: String, CodingKey, CaseIterable {
         case billingAddress = "BillingAddress"
         case shippingAddress = "ShippingAddress"
         case channelOrderNo = "ChannelOrderNo"
@@ -79,5 +77,29 @@ public struct ChannelOrderRequest: Codable {
         case channelCustomerNo = "ChannelCustomerNo"
         case extraData = "ExtraData"
     }
+
+    // Encodable protocol methods
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(billingAddress, forKey: .billingAddress)
+        try container.encode(shippingAddress, forKey: .shippingAddress)
+        try container.encode(channelOrderNo, forKey: .channelOrderNo)
+        try container.encodeIfPresent(isBusinessOrder, forKey: .isBusinessOrder)
+        try container.encodeIfPresent(keyIsMerchantProductNo, forKey: .keyIsMerchantProductNo)
+        try container.encode(lines, forKey: .lines)
+        try container.encodeIfPresent(phone, forKey: .phone)
+        try container.encode(email, forKey: .email)
+        try container.encodeIfPresent(companyRegistrationNo, forKey: .companyRegistrationNo)
+        try container.encodeIfPresent(vatNo, forKey: .vatNo)
+        try container.encodeIfPresent(paymentMethod, forKey: .paymentMethod)
+        try container.encode(shippingCostsInclVat, forKey: .shippingCostsInclVat)
+        try container.encode(currencyCode, forKey: .currencyCode)
+        try container.encode(orderDate, forKey: .orderDate)
+        try container.encodeIfPresent(channelCustomerNo, forKey: .channelCustomerNo)
+        try container.encodeIfPresent(extraData, forKey: .extraData)
+    }
+
+
 
 }

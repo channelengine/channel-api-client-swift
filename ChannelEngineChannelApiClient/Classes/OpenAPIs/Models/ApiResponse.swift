@@ -6,31 +6,42 @@
 //
 
 import Foundation
+import AnyCodable
 
-
-public struct ApiResponse: Codable { 
-
+public struct ApiResponse: Codable, Hashable {
 
     public var statusCode: Int?
     public var logId: Int?
     public var success: Bool?
     public var message: String?
-    public var validationErrors: [String:[String]]?
+    public var validationErrors: [String: [String]]?
 
-    public init(statusCode: Int? = nil, logId: Int? = nil, success: Bool? = nil, message: String? = nil, validationErrors: [String:[String]]? = nil) {
+    public init(statusCode: Int? = nil, logId: Int? = nil, success: Bool? = nil, message: String? = nil, validationErrors: [String: [String]]? = nil) {
         self.statusCode = statusCode
         self.logId = logId
         self.success = success
         self.message = message
         self.validationErrors = validationErrors
     }
-
-    public enum CodingKeys: String, CodingKey, CaseIterable { 
+    public enum CodingKeys: String, CodingKey, CaseIterable {
         case statusCode = "StatusCode"
         case logId = "LogId"
         case success = "Success"
         case message = "Message"
         case validationErrors = "ValidationErrors"
     }
+
+    // Encodable protocol methods
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(statusCode, forKey: .statusCode)
+        try container.encodeIfPresent(logId, forKey: .logId)
+        try container.encodeIfPresent(success, forKey: .success)
+        try container.encodeIfPresent(message, forKey: .message)
+        try container.encodeIfPresent(validationErrors, forKey: .validationErrors)
+    }
+
+
 
 }
