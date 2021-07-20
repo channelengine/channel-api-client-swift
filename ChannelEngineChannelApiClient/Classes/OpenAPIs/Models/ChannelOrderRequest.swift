@@ -30,6 +30,8 @@ public struct ChannelOrderRequest: Codable, Hashable {
     public var vatNo: String?
     /** The payment method used on the order. */
     public var paymentMethod: String?
+    /** Reference or transaction id for the payment */
+    public var paymentReferenceNo: String?
     /** The shipping fee including VAT  (in the shop&#39;s base currency calculated using the exchange rate at the time of ordering). */
     public var shippingCostsInclVat: Double
     /** The currency code for the amounts of the order. */
@@ -41,7 +43,7 @@ public struct ChannelOrderRequest: Codable, Hashable {
     /** Extra data on the order. */
     public var extraData: [String: String]?
 
-    public init(billingAddress: ChannelAddressRequest, shippingAddress: ChannelAddressRequest, channelOrderNo: String, isBusinessOrder: Bool? = nil, keyIsMerchantProductNo: Bool? = nil, lines: [ChannelOrderLineRequest], phone: String? = nil, email: String, companyRegistrationNo: String? = nil, vatNo: String? = nil, paymentMethod: String? = nil, shippingCostsInclVat: Double, currencyCode: String, orderDate: Date, channelCustomerNo: String? = nil, extraData: [String: String]? = nil) {
+    public init(billingAddress: ChannelAddressRequest, shippingAddress: ChannelAddressRequest, channelOrderNo: String, isBusinessOrder: Bool? = nil, keyIsMerchantProductNo: Bool? = nil, lines: [ChannelOrderLineRequest], phone: String? = nil, email: String, companyRegistrationNo: String? = nil, vatNo: String? = nil, paymentMethod: String? = nil, paymentReferenceNo: String? = nil, shippingCostsInclVat: Double, currencyCode: String, orderDate: Date, channelCustomerNo: String? = nil, extraData: [String: String]? = nil) {
         self.billingAddress = billingAddress
         self.shippingAddress = shippingAddress
         self.channelOrderNo = channelOrderNo
@@ -53,6 +55,7 @@ public struct ChannelOrderRequest: Codable, Hashable {
         self.companyRegistrationNo = companyRegistrationNo
         self.vatNo = vatNo
         self.paymentMethod = paymentMethod
+        self.paymentReferenceNo = paymentReferenceNo
         self.shippingCostsInclVat = shippingCostsInclVat
         self.currencyCode = currencyCode
         self.orderDate = orderDate
@@ -71,6 +74,7 @@ public struct ChannelOrderRequest: Codable, Hashable {
         case companyRegistrationNo = "CompanyRegistrationNo"
         case vatNo = "VatNo"
         case paymentMethod = "PaymentMethod"
+        case paymentReferenceNo = "PaymentReferenceNo"
         case shippingCostsInclVat = "ShippingCostsInclVat"
         case currencyCode = "CurrencyCode"
         case orderDate = "OrderDate"
@@ -93,6 +97,7 @@ public struct ChannelOrderRequest: Codable, Hashable {
         try container.encodeIfPresent(companyRegistrationNo, forKey: .companyRegistrationNo)
         try container.encodeIfPresent(vatNo, forKey: .vatNo)
         try container.encodeIfPresent(paymentMethod, forKey: .paymentMethod)
+        try container.encodeIfPresent(paymentReferenceNo, forKey: .paymentReferenceNo)
         try container.encode(shippingCostsInclVat, forKey: .shippingCostsInclVat)
         try container.encode(currencyCode, forKey: .currencyCode)
         try container.encode(orderDate, forKey: .orderDate)

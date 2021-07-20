@@ -57,7 +57,6 @@ open class ReturnAPI {
     /**
      Get Returns.
      
-     - parameter createdSince: (query) Deprecated, please use FromDate instead. (optional)
      - parameter statuses: (query) Return status(es) to filter on. (optional)
      - parameter reasons: (query) Return reason(s) to filter on. (optional)
      - parameter fromDate: (query) Filter on the creation date, starting from this date. This date is inclusive. (optional)
@@ -66,8 +65,8 @@ open class ReturnAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func returnGetDeclaredByMerchant(createdSince: Date? = nil, statuses: [ReturnStatus]? = nil, reasons: [ReturnReason]? = nil, fromDate: Date? = nil, toDate: Date? = nil, page: Int? = nil, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: CollectionOfChannelReturnResponse?, _ error: Error?) -> Void)) {
-        returnGetDeclaredByMerchantWithRequestBuilder(createdSince: createdSince, statuses: statuses, reasons: reasons, fromDate: fromDate, toDate: toDate, page: page).execute(apiResponseQueue) { result -> Void in
+    open class func returnGetDeclaredByMerchant(statuses: [ReturnStatus]? = nil, reasons: [ReturnReason]? = nil, fromDate: Date? = nil, toDate: Date? = nil, page: Int? = nil, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: CollectionOfChannelReturnResponse?, _ error: Error?) -> Void)) {
+        returnGetDeclaredByMerchantWithRequestBuilder(statuses: statuses, reasons: reasons, fromDate: fromDate, toDate: toDate, page: page).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -84,7 +83,6 @@ open class ReturnAPI {
      - API Key:
        - type: apiKey apikey (QUERY)
        - name: apiKey
-     - parameter createdSince: (query) Deprecated, please use FromDate instead. (optional)
      - parameter statuses: (query) Return status(es) to filter on. (optional)
      - parameter reasons: (query) Return reason(s) to filter on. (optional)
      - parameter fromDate: (query) Filter on the creation date, starting from this date. This date is inclusive. (optional)
@@ -92,14 +90,13 @@ open class ReturnAPI {
      - parameter page: (query) The page to filter on. Starts at 1. (optional)
      - returns: RequestBuilder<CollectionOfChannelReturnResponse> 
      */
-    open class func returnGetDeclaredByMerchantWithRequestBuilder(createdSince: Date? = nil, statuses: [ReturnStatus]? = nil, reasons: [ReturnReason]? = nil, fromDate: Date? = nil, toDate: Date? = nil, page: Int? = nil) -> RequestBuilder<CollectionOfChannelReturnResponse> {
+    open class func returnGetDeclaredByMerchantWithRequestBuilder(statuses: [ReturnStatus]? = nil, reasons: [ReturnReason]? = nil, fromDate: Date? = nil, toDate: Date? = nil, page: Int? = nil) -> RequestBuilder<CollectionOfChannelReturnResponse> {
         let path = "/v2/returns/channel"
         let URLString = ChannelEngineChannelApiClientAPI.basePath + path
         let parameters: [String: Any]? = nil
 
         var urlComponents = URLComponents(string: URLString)
         urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
-            "createdSince": createdSince?.encodeToJSON(),
             "statuses": statuses?.encodeToJSON(),
             "reasons": reasons?.encodeToJSON(),
             "fromDate": fromDate?.encodeToJSON(),
