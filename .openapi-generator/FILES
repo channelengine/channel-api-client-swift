@@ -46,7 +46,6 @@ ChannelEngineChannelApiClient/Classes/OpenAPIs/Models/OrderStatusView.swift
 ChannelEngineChannelApiClient/Classes/OpenAPIs/Models/ReturnReason.swift
 ChannelEngineChannelApiClient/Classes/OpenAPIs/Models/ReturnStatus.swift
 ChannelEngineChannelApiClient/Classes/OpenAPIs/Models/ShipmentLineStatus.swift
-ChannelEngineChannelApiClient/Classes/OpenAPIs/Models/ShipmentStatus.swift
 ChannelEngineChannelApiClient/Classes/OpenAPIs/Models/SingleOfChannelProductChangesResponse.swift
 ChannelEngineChannelApiClient/Classes/OpenAPIs/Models/VatRateType.swift
 ChannelEngineChannelApiClient/Classes/OpenAPIs/OpenISO8601DateFormatter.swift

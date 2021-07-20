@@ -11,8 +11,6 @@ open class ShipmentAPI {
     /**
      Get Shipments.
      
-     - parameter createdSince: (query) Deprecated, please use FromDate instead. (optional)
-     - parameter statuses: (query) Deprecated, shipment status(es) to filter on. (optional)
      - parameter fromDate: (query) Filter on the creation date, starting from this date. This date is inclusive. (optional)
      - parameter toDate: (query) Filter on the creation date, until this date. This date is exclusive. (optional)
      - parameter channelOrderNos: (query) Filter on the unique references (ids) as used by the channel. (optional)
@@ -20,8 +18,8 @@ open class ShipmentAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func shipmentIndex(createdSince: Date? = nil, statuses: [ShipmentStatus]? = nil, fromDate: Date? = nil, toDate: Date? = nil, channelOrderNos: [String]? = nil, page: Int? = nil, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: CollectionOfChannelShipmentResponse?, _ error: Error?) -> Void)) {
-        shipmentIndexWithRequestBuilder(createdSince: createdSince, statuses: statuses, fromDate: fromDate, toDate: toDate, channelOrderNos: channelOrderNos, page: page).execute(apiResponseQueue) { result -> Void in
+    open class func shipmentIndex(fromDate: Date? = nil, toDate: Date? = nil, channelOrderNos: [String]? = nil, page: Int? = nil, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: CollectionOfChannelShipmentResponse?, _ error: Error?) -> Void)) {
+        shipmentIndexWithRequestBuilder(fromDate: fromDate, toDate: toDate, channelOrderNos: channelOrderNos, page: page).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -38,23 +36,19 @@ open class ShipmentAPI {
      - API Key:
        - type: apiKey apikey (QUERY)
        - name: apiKey
-     - parameter createdSince: (query) Deprecated, please use FromDate instead. (optional)
-     - parameter statuses: (query) Deprecated, shipment status(es) to filter on. (optional)
      - parameter fromDate: (query) Filter on the creation date, starting from this date. This date is inclusive. (optional)
      - parameter toDate: (query) Filter on the creation date, until this date. This date is exclusive. (optional)
      - parameter channelOrderNos: (query) Filter on the unique references (ids) as used by the channel. (optional)
      - parameter page: (query) The page to filter on. Starts at 1. (optional)
      - returns: RequestBuilder<CollectionOfChannelShipmentResponse> 
      */
-    open class func shipmentIndexWithRequestBuilder(createdSince: Date? = nil, statuses: [ShipmentStatus]? = nil, fromDate: Date? = nil, toDate: Date? = nil, channelOrderNos: [String]? = nil, page: Int? = nil) -> RequestBuilder<CollectionOfChannelShipmentResponse> {
+    open class func shipmentIndexWithRequestBuilder(fromDate: Date? = nil, toDate: Date? = nil, channelOrderNos: [String]? = nil, page: Int? = nil) -> RequestBuilder<CollectionOfChannelShipmentResponse> {
         let path = "/v2/shipments"
         let URLString = ChannelEngineChannelApiClientAPI.basePath + path
         let parameters: [String: Any]? = nil
 
         var urlComponents = URLComponents(string: URLString)
         urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
-            "createdSince": createdSince?.encodeToJSON(),
-            "statuses": statuses?.encodeToJSON(),
             "fromDate": fromDate?.encodeToJSON(),
             "toDate": toDate?.encodeToJSON(),
             "channelOrderNos": channelOrderNos?.encodeToJSON(),
