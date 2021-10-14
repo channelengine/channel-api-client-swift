@@ -25,8 +25,10 @@ public struct ChannelShipmentResponse: Codable, Hashable {
     public var returnTrackTraceNo: String?
     /** Shipment method: the carrier used for shipping the package. E.g. DHL, postNL. */
     public var method: String?
+    /** The code of the country from where the package is being shipped. */
+    public var shippedFromCountryCode: String?
 
-    public init(channelOrderNo: String, lines: [ChannelShipmentLineResponse], createdAt: Date? = nil, updatedAt: Date? = nil, trackTraceNo: String? = nil, trackTraceUrl: String? = nil, returnTrackTraceNo: String? = nil, method: String? = nil) {
+    public init(channelOrderNo: String, lines: [ChannelShipmentLineResponse], createdAt: Date? = nil, updatedAt: Date? = nil, trackTraceNo: String? = nil, trackTraceUrl: String? = nil, returnTrackTraceNo: String? = nil, method: String? = nil, shippedFromCountryCode: String? = nil) {
         self.channelOrderNo = channelOrderNo
         self.lines = lines
         self.createdAt = createdAt
@@ -35,6 +37,7 @@ public struct ChannelShipmentResponse: Codable, Hashable {
         self.trackTraceUrl = trackTraceUrl
         self.returnTrackTraceNo = returnTrackTraceNo
         self.method = method
+        self.shippedFromCountryCode = shippedFromCountryCode
     }
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case channelOrderNo = "ChannelOrderNo"
@@ -45,6 +48,7 @@ public struct ChannelShipmentResponse: Codable, Hashable {
         case trackTraceUrl = "TrackTraceUrl"
         case returnTrackTraceNo = "ReturnTrackTraceNo"
         case method = "Method"
+        case shippedFromCountryCode = "ShippedFromCountryCode"
     }
 
     // Encodable protocol methods
@@ -59,6 +63,7 @@ public struct ChannelShipmentResponse: Codable, Hashable {
         try container.encodeIfPresent(trackTraceUrl, forKey: .trackTraceUrl)
         try container.encodeIfPresent(returnTrackTraceNo, forKey: .returnTrackTraceNo)
         try container.encodeIfPresent(method, forKey: .method)
+        try container.encodeIfPresent(shippedFromCountryCode, forKey: .shippedFromCountryCode)
     }
 
 

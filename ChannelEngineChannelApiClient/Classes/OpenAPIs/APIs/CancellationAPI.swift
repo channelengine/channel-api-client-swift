@@ -11,7 +11,7 @@ open class CancellationAPI {
     /**
      Get Cancellations.
      
-     - parameter createdSince: (query)  (optional)
+     - parameter createdSince: (query) The date from which you will get all created cancellations (optional)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -33,7 +33,7 @@ open class CancellationAPI {
      - API Key:
        - type: apiKey apikey (QUERY)
        - name: apiKey
-     - parameter createdSince: (query)  (optional)
+     - parameter createdSince: (query) The date from which you will get all created cancellations (optional)
      - returns: RequestBuilder<CollectionOfChannelCancellationResponse> 
      */
     open class func cancellationIndexWithRequestBuilder(createdSince: Date? = nil) -> RequestBuilder<CollectionOfChannelCancellationResponse> {
