@@ -13,9 +13,9 @@ public struct ChannelProductReferencesRequest: Codable, Hashable {
     /** The unique ChannelEngine product ID. */
     public var id: Int?
     /** The unique product reference used by the Channel. */
-    public var channelProductNo: String?
+    public var channelProductNo: String
 
-    public init(id: Int? = nil, channelProductNo: String? = nil) {
+    public init(id: Int? = nil, channelProductNo: String) {
         self.id = id
         self.channelProductNo = channelProductNo
     }
@@ -29,7 +29,7 @@ public struct ChannelProductReferencesRequest: Codable, Hashable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(id, forKey: .id)
-        try container.encodeIfPresent(channelProductNo, forKey: .channelProductNo)
+        try container.encode(channelProductNo, forKey: .channelProductNo)
     }
 
 

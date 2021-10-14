@@ -15,18 +15,22 @@ public struct ChannelOfferResponse: Codable, Hashable {
     public var merchantProductNo: String?
     public var price: Double?
     public var stock: Int?
+    /** A channel can require certain fields to be available. The channel  can provide ChannelEngine with this fields after which the merchants  will be able to fill in this field using custom conditions in ChannelEngine. */
+    public var mappedFields: [String: String]?
 
-    public init(channelProductNo: String? = nil, merchantProductNo: String? = nil, price: Double? = nil, stock: Int? = nil) {
+    public init(channelProductNo: String? = nil, merchantProductNo: String? = nil, price: Double? = nil, stock: Int? = nil, mappedFields: [String: String]? = nil) {
         self.channelProductNo = channelProductNo
         self.merchantProductNo = merchantProductNo
         self.price = price
         self.stock = stock
+        self.mappedFields = mappedFields
     }
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case channelProductNo = "ChannelProductNo"
         case merchantProductNo = "MerchantProductNo"
         case price = "Price"
         case stock = "Stock"
+        case mappedFields = "MappedFields"
     }
 
     // Encodable protocol methods
@@ -37,6 +41,7 @@ public struct ChannelOfferResponse: Codable, Hashable {
         try container.encodeIfPresent(merchantProductNo, forKey: .merchantProductNo)
         try container.encodeIfPresent(price, forKey: .price)
         try container.encodeIfPresent(stock, forKey: .stock)
+        try container.encodeIfPresent(mappedFields, forKey: .mappedFields)
     }
 
 
