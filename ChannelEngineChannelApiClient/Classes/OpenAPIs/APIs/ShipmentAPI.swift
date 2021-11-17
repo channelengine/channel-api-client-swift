@@ -87,7 +87,7 @@ open class ShipmentAPI {
     /**
      Download shipping label.
      - GET /v2/orders/{merchantShipmentNo}/shippinglabel
-     - Downloads the shipping label for the shipment
+     - Downloads the shipping label for the shipment. There may pass some time between creating the shipment<br />and the availability of the label. So '404 Not Found' might incidate it is not available yet.
      - API Key:
        - type: apiKey apikey (QUERY)
        - name: apiKey
