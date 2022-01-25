@@ -16,14 +16,17 @@ public struct ChannelShipmentLineResponse: Codable, Hashable {
     public var merchantProductNo: String?
     public var orderLine: ChannelOrderLineResponse?
     public var shipmentStatus: ShipmentLineStatus?
+    /** Extra data on the order. Each item must have an unqiue key */
+    public var extraData: [String: String]?
     /** Number of items of the product in the shipment. */
     public var quantity: Int
 
-    public init(channelProductNo: String, merchantProductNo: String? = nil, orderLine: ChannelOrderLineResponse? = nil, shipmentStatus: ShipmentLineStatus? = nil, quantity: Int) {
+    public init(channelProductNo: String, merchantProductNo: String? = nil, orderLine: ChannelOrderLineResponse? = nil, shipmentStatus: ShipmentLineStatus? = nil, extraData: [String: String]? = nil, quantity: Int) {
         self.channelProductNo = channelProductNo
         self.merchantProductNo = merchantProductNo
         self.orderLine = orderLine
         self.shipmentStatus = shipmentStatus
+        self.extraData = extraData
         self.quantity = quantity
     }
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -31,6 +34,7 @@ public struct ChannelShipmentLineResponse: Codable, Hashable {
         case merchantProductNo = "MerchantProductNo"
         case orderLine = "OrderLine"
         case shipmentStatus = "ShipmentStatus"
+        case extraData = "ExtraData"
         case quantity = "Quantity"
     }
 
@@ -42,6 +46,7 @@ public struct ChannelShipmentLineResponse: Codable, Hashable {
         try container.encodeIfPresent(merchantProductNo, forKey: .merchantProductNo)
         try container.encodeIfPresent(orderLine, forKey: .orderLine)
         try container.encodeIfPresent(shipmentStatus, forKey: .shipmentStatus)
+        try container.encodeIfPresent(extraData, forKey: .extraData)
         try container.encode(quantity, forKey: .quantity)
     }
 
