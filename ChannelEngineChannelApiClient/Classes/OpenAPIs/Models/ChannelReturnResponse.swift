@@ -32,8 +32,10 @@ public struct ChannelReturnResponse: Codable, Hashable {
     public var refundInclVat: Double?
     /** Refund amount excl. VAT. */
     public var refundExclVat: Double?
+    /** The date at which the return was originally created in the source system (if available). */
+    public var returnDate: Date?
 
-    public init(channelReturnNo: String, channelOrderNo: String, merchantOrderNo: String? = nil, lines: [ChannelReturnLineResponse], createdAt: Date? = nil, updatedAt: Date? = nil, id: Int? = nil, reason: ReturnReason? = nil, customerComment: String? = nil, merchantComment: String? = nil, refundInclVat: Double? = nil, refundExclVat: Double? = nil) {
+    public init(channelReturnNo: String, channelOrderNo: String, merchantOrderNo: String? = nil, lines: [ChannelReturnLineResponse], createdAt: Date? = nil, updatedAt: Date? = nil, id: Int? = nil, reason: ReturnReason? = nil, customerComment: String? = nil, merchantComment: String? = nil, refundInclVat: Double? = nil, refundExclVat: Double? = nil, returnDate: Date? = nil) {
         self.channelReturnNo = channelReturnNo
         self.channelOrderNo = channelOrderNo
         self.merchantOrderNo = merchantOrderNo
@@ -46,6 +48,7 @@ public struct ChannelReturnResponse: Codable, Hashable {
         self.merchantComment = merchantComment
         self.refundInclVat = refundInclVat
         self.refundExclVat = refundExclVat
+        self.returnDate = returnDate
     }
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case channelReturnNo = "ChannelReturnNo"
@@ -60,6 +63,7 @@ public struct ChannelReturnResponse: Codable, Hashable {
         case merchantComment = "MerchantComment"
         case refundInclVat = "RefundInclVat"
         case refundExclVat = "RefundExclVat"
+        case returnDate = "ReturnDate"
     }
 
     // Encodable protocol methods
@@ -78,6 +82,7 @@ public struct ChannelReturnResponse: Codable, Hashable {
         try container.encodeIfPresent(merchantComment, forKey: .merchantComment)
         try container.encodeIfPresent(refundInclVat, forKey: .refundInclVat)
         try container.encodeIfPresent(refundExclVat, forKey: .refundExclVat)
+        try container.encodeIfPresent(returnDate, forKey: .returnDate)
     }
 
 

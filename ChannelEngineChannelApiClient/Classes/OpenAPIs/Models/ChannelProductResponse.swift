@@ -34,6 +34,8 @@ public struct ChannelProductResponse: Codable, Hashable {
     public var ean: String?
     /** The unique product reference used by the manufacturer/vendor of the product. */
     public var manufacturerProductNumber: String?
+    /** A unique identifier of the product. (sku). */
+    public var merchantProductNo: String
     /** The number of items in stock. */
     public var stock: Int?
     /** Price, including VAT. */
@@ -72,7 +74,7 @@ public struct ChannelProductResponse: Codable, Hashable {
     /** The category to which this product belongs.  Please supply this field in the following format:  &#39;maincategory &gt; category &gt; subcategory&#39;  For example:  &#39;vehicles &gt; bikes &gt; mountainbike&#39;. */
     public var categoryTrail: String?
 
-    public init(id: Int? = nil, parentChannelProductNo: String? = nil, grandparentChannelProductNo: String? = nil, mappedFields: [String: String]? = nil, extraData: [ChannelProductExtraDataItemResponse]? = nil, name: String? = nil, description: String? = nil, brand: String? = nil, size: String? = nil, color: String? = nil, ean: String? = nil, manufacturerProductNumber: String? = nil, stock: Int? = nil, price: Double? = nil, MSRP: Double? = nil, purchasePrice: Double? = nil, vatRateType: VatRateType? = nil, shippingCost: Double? = nil, shippingTime: String? = nil, url: String? = nil, imageUrl: String? = nil, extraImageUrl1: String? = nil, extraImageUrl2: String? = nil, extraImageUrl3: String? = nil, extraImageUrl4: String? = nil, extraImageUrl5: String? = nil, extraImageUrl6: String? = nil, extraImageUrl7: String? = nil, extraImageUrl8: String? = nil, extraImageUrl9: String? = nil, categoryTrail: String? = nil) {
+    public init(id: Int? = nil, parentChannelProductNo: String? = nil, grandparentChannelProductNo: String? = nil, mappedFields: [String: String]? = nil, extraData: [ChannelProductExtraDataItemResponse]? = nil, name: String? = nil, description: String? = nil, brand: String? = nil, size: String? = nil, color: String? = nil, ean: String? = nil, manufacturerProductNumber: String? = nil, merchantProductNo: String, stock: Int? = nil, price: Double? = nil, MSRP: Double? = nil, purchasePrice: Double? = nil, vatRateType: VatRateType? = nil, shippingCost: Double? = nil, shippingTime: String? = nil, url: String? = nil, imageUrl: String? = nil, extraImageUrl1: String? = nil, extraImageUrl2: String? = nil, extraImageUrl3: String? = nil, extraImageUrl4: String? = nil, extraImageUrl5: String? = nil, extraImageUrl6: String? = nil, extraImageUrl7: String? = nil, extraImageUrl8: String? = nil, extraImageUrl9: String? = nil, categoryTrail: String? = nil) {
         self.id = id
         self.parentChannelProductNo = parentChannelProductNo
         self.grandparentChannelProductNo = grandparentChannelProductNo
@@ -85,6 +87,7 @@ public struct ChannelProductResponse: Codable, Hashable {
         self.color = color
         self.ean = ean
         self.manufacturerProductNumber = manufacturerProductNumber
+        self.merchantProductNo = merchantProductNo
         self.stock = stock
         self.price = price
         self.MSRP = MSRP
@@ -118,6 +121,7 @@ public struct ChannelProductResponse: Codable, Hashable {
         case color = "Color"
         case ean = "Ean"
         case manufacturerProductNumber = "ManufacturerProductNumber"
+        case merchantProductNo = "MerchantProductNo"
         case stock = "Stock"
         case price = "Price"
         case MSRP
@@ -155,6 +159,7 @@ public struct ChannelProductResponse: Codable, Hashable {
         try container.encodeIfPresent(color, forKey: .color)
         try container.encodeIfPresent(ean, forKey: .ean)
         try container.encodeIfPresent(manufacturerProductNumber, forKey: .manufacturerProductNumber)
+        try container.encode(merchantProductNo, forKey: .merchantProductNo)
         try container.encodeIfPresent(stock, forKey: .stock)
         try container.encodeIfPresent(price, forKey: .price)
         try container.encodeIfPresent(MSRP, forKey: .MSRP)

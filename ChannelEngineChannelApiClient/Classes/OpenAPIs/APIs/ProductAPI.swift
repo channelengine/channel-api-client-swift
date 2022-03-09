@@ -110,11 +110,13 @@ open class ProductAPI {
      
      - parameter maxCount: (query) Optional - limit the amount of products returned for each field&lt;br /&gt; (ToBeCreated, ToBeUpdated, ToBeRemoved) to this number. (optional)
      - parameter stripHtml: (query) Optional - strips html by default on all fields (optional, default to true)
+     - parameter page: (query)  (optional)
+     - parameter pageSize: (query)  (optional)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func productGetDataChanges(maxCount: Int? = nil, stripHtml: Bool? = nil, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: SingleOfChannelProductChangesResponse?, _ error: Error?) -> Void)) {
-        productGetDataChangesWithRequestBuilder(maxCount: maxCount, stripHtml: stripHtml).execute(apiResponseQueue) { result -> Void in
+    open class func productGetDataChanges(maxCount: Int? = nil, stripHtml: Bool? = nil, page: Int? = nil, pageSize: Int? = nil, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: SingleOfChannelProductChangesResponse?, _ error: Error?) -> Void)) {
+        productGetDataChangesWithRequestBuilder(maxCount: maxCount, stripHtml: stripHtml, page: page, pageSize: pageSize).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -133,9 +135,11 @@ open class ProductAPI {
        - name: apiKey
      - parameter maxCount: (query) Optional - limit the amount of products returned for each field&lt;br /&gt; (ToBeCreated, ToBeUpdated, ToBeRemoved) to this number. (optional)
      - parameter stripHtml: (query) Optional - strips html by default on all fields (optional, default to true)
+     - parameter page: (query)  (optional)
+     - parameter pageSize: (query)  (optional)
      - returns: RequestBuilder<SingleOfChannelProductChangesResponse> 
      */
-    open class func productGetDataChangesWithRequestBuilder(maxCount: Int? = nil, stripHtml: Bool? = nil) -> RequestBuilder<SingleOfChannelProductChangesResponse> {
+    open class func productGetDataChangesWithRequestBuilder(maxCount: Int? = nil, stripHtml: Bool? = nil, page: Int? = nil, pageSize: Int? = nil) -> RequestBuilder<SingleOfChannelProductChangesResponse> {
         let path = "/v2/products/data"
         let URLString = ChannelEngineChannelApiClientAPI.basePath + path
         let parameters: [String: Any]? = nil
@@ -144,6 +148,8 @@ open class ProductAPI {
         urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "maxCount": maxCount?.encodeToJSON(),
             "stripHtml": stripHtml?.encodeToJSON(),
+            "page": page?.encodeToJSON(),
+            "pageSize": pageSize?.encodeToJSON(),
         ])
 
         let nillableHeaders: [String: Any?] = [

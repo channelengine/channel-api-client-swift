@@ -42,6 +42,7 @@ ChannelEngineChannelApiClient/Classes/OpenAPIs/Models/DataChangesProductType.swi
 ChannelEngineChannelApiClient/Classes/OpenAPIs/Models/ExtraDataType.swift
 ChannelEngineChannelApiClient/Classes/OpenAPIs/Models/Gender.swift
 ChannelEngineChannelApiClient/Classes/OpenAPIs/Models/MancoReason.swift
+ChannelEngineChannelApiClient/Classes/OpenAPIs/Models/Operation.swift
 ChannelEngineChannelApiClient/Classes/OpenAPIs/Models/OrderStatusView.swift
 ChannelEngineChannelApiClient/Classes/OpenAPIs/Models/ReturnReason.swift
 ChannelEngineChannelApiClient/Classes/OpenAPIs/Models/ReturnStatus.swift
