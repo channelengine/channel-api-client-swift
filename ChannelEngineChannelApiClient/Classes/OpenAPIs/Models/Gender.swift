@@ -6,7 +6,9 @@
 //
 
 import Foundation
+#if canImport(AnyCodable)
 import AnyCodable
+#endif
 
 public enum Gender: String, Codable, CaseIterable {
     case male = "MALE"

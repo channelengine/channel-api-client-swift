@@ -6,8 +6,12 @@
 //
 
 import Foundation
+#if canImport(AnyCodable)
+import AnyCodable
+#endif
 
 open class ReturnAPI {
+
     /**
      Create Return.
      
@@ -16,7 +20,7 @@ open class ReturnAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     open class func returnDeclareForChannel(channelReturnRequest: ChannelReturnRequest? = nil, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: ApiResponse?, _ error: Error?) -> Void)) {
-        returnDeclareForChannelWithRequestBuilder(channelReturnRequest: channelReturnRequest).execute(apiResponseQueue) { result -> Void in
+        returnDeclareForChannelWithRequestBuilder(channelReturnRequest: channelReturnRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -37,21 +41,21 @@ open class ReturnAPI {
      - returns: RequestBuilder<ApiResponse> 
      */
     open class func returnDeclareForChannelWithRequestBuilder(channelReturnRequest: ChannelReturnRequest? = nil) -> RequestBuilder<ApiResponse> {
-        let path = "/v2/returns/channel"
-        let URLString = ChannelEngineChannelApiClientAPI.basePath + path
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: channelReturnRequest)
+        let localVariablePath = "/v2/returns/channel"
+        let localVariableURLString = ChannelEngineChannelApiClientAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: channelReturnRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<ApiResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<ApiResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -66,7 +70,7 @@ open class ReturnAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     open class func returnGetDeclaredByMerchant(statuses: [ReturnStatus]? = nil, reasons: [ReturnReason]? = nil, fromDate: Date? = nil, toDate: Date? = nil, page: Int? = nil, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: CollectionOfChannelReturnResponse?, _ error: Error?) -> Void)) {
-        returnGetDeclaredByMerchantWithRequestBuilder(statuses: statuses, reasons: reasons, fromDate: fromDate, toDate: toDate, page: page).execute(apiResponseQueue) { result -> Void in
+        returnGetDeclaredByMerchantWithRequestBuilder(statuses: statuses, reasons: reasons, fromDate: fromDate, toDate: toDate, page: page).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -91,12 +95,12 @@ open class ReturnAPI {
      - returns: RequestBuilder<CollectionOfChannelReturnResponse> 
      */
     open class func returnGetDeclaredByMerchantWithRequestBuilder(statuses: [ReturnStatus]? = nil, reasons: [ReturnReason]? = nil, fromDate: Date? = nil, toDate: Date? = nil, page: Int? = nil) -> RequestBuilder<CollectionOfChannelReturnResponse> {
-        let path = "/v2/returns/channel"
-        let URLString = ChannelEngineChannelApiClientAPI.basePath + path
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/v2/returns/channel"
+        let localVariableURLString = ChannelEngineChannelApiClientAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "statuses": statuses?.encodeToJSON(),
             "reasons": reasons?.encodeToJSON(),
             "fromDate": fromDate?.encodeToJSON(),
@@ -104,15 +108,14 @@ open class ReturnAPI {
             "page": page?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<CollectionOfChannelReturnResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<CollectionOfChannelReturnResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
-
 }

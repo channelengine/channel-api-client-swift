@@ -6,7 +6,9 @@
 //
 
 import Foundation
+#if canImport(AnyCodable)
 import AnyCodable
+#endif
 
 public enum ExtraDataType: String, Codable, CaseIterable {
     case text = "TEXT"

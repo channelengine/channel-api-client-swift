@@ -6,7 +6,9 @@
 //
 
 import Foundation
+#if canImport(AnyCodable)
 import AnyCodable
+#endif
 
 public struct ChannelReturnResponse: Codable, Hashable {
 
@@ -50,6 +52,7 @@ public struct ChannelReturnResponse: Codable, Hashable {
         self.refundExclVat = refundExclVat
         self.returnDate = returnDate
     }
+
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case channelReturnNo = "ChannelReturnNo"
         case channelOrderNo = "ChannelOrderNo"
@@ -84,7 +87,5 @@ public struct ChannelReturnResponse: Codable, Hashable {
         try container.encodeIfPresent(refundExclVat, forKey: .refundExclVat)
         try container.encodeIfPresent(returnDate, forKey: .returnDate)
     }
-
-
-
 }
+

@@ -6,10 +6,17 @@
 
 import Foundation
 
+// We reverted the change of ChannelEngineChannelApiClientAPI to ChannelEngineChannelApiClient introduced in https://github.com/OpenAPITools/openapi-generator/pull/9624
+// Because it was causing the following issue https://github.com/OpenAPITools/openapi-generator/issues/9953
+// If you are affected by this issue, please consider removing the following two lines,
+// By setting the option removeMigrationProjectNameClass to true in the generator
+@available(*, deprecated, renamed: "ChannelEngineChannelApiClientAPI")
+public typealias ChannelEngineChannelApiClient = ChannelEngineChannelApiClientAPI
+
 open class ChannelEngineChannelApiClientAPI {
     public static var basePath = "http://dev.channelengine.local/api"
-    public static var credential: URLCredential?
     public static var customHeaders: [String: String] = [:]
+    public static var credential: URLCredential?
     public static var requestBuilderFactory: RequestBuilderFactory = URLSessionRequestBuilderFactory()
     public static var apiResponseQueue: DispatchQueue = .main
 }
@@ -41,7 +48,7 @@ open class RequestBuilder<T> {
         }
     }
 
-    open func execute(_ apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, _ completion: @escaping (_ result: Swift.Result<Response<T>, Error>) -> Void) { }
+    open func execute(_ apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, _ completion: @escaping (_ result: Swift.Result<Response<T>, ErrorResponse>) -> Void) { }
 
     public func addHeader(name: String, value: String) -> Self {
         if !value.isEmpty {

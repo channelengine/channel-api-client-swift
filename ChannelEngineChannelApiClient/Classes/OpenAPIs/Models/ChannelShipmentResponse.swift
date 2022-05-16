@@ -6,7 +6,9 @@
 //
 
 import Foundation
+#if canImport(AnyCodable)
 import AnyCodable
+#endif
 
 public struct ChannelShipmentResponse: Codable, Hashable {
 
@@ -19,11 +21,11 @@ public struct ChannelShipmentResponse: Codable, Hashable {
     public var updatedAt: Date?
     /** Extra data on the order. Each item must have an unqiue key */
     public var extraData: [String: String]?
-    /** The unique shipping reference used by the Shipping carrier (track&amp;trace number). */
+    /** The unique shipping reference used by the Shipping carrier (track&trace number). */
     public var trackTraceNo: String?
     /** A link to a page of the carrier where the customer can track the shipping of her package. */
     public var trackTraceUrl: String?
-    /** The unique return shipping reference that may be used by the Shipping carrier (track &amp; trace number) if the shipment is returned. */
+    /** The unique return shipping reference that may be used by the Shipping carrier (track & trace number) if the shipment is returned. */
     public var returnTrackTraceNo: String?
     /** Shipment method: the carrier used for shipping the package. E.g. DHL, postNL. */
     public var method: String?
@@ -45,6 +47,7 @@ public struct ChannelShipmentResponse: Codable, Hashable {
         self.shippedFromCountryCode = shippedFromCountryCode
         self.shipmentDate = shipmentDate
     }
+
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case channelOrderNo = "ChannelOrderNo"
         case lines = "Lines"
@@ -75,7 +78,5 @@ public struct ChannelShipmentResponse: Codable, Hashable {
         try container.encodeIfPresent(shippedFromCountryCode, forKey: .shippedFromCountryCode)
         try container.encodeIfPresent(shipmentDate, forKey: .shipmentDate)
     }
-
-
-
 }
+

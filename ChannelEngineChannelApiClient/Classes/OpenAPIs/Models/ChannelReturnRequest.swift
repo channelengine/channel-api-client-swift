@@ -6,7 +6,9 @@
 //
 
 import Foundation
+#if canImport(AnyCodable)
 import AnyCodable
+#endif
 
 public struct ChannelReturnRequest: Codable, Hashable {
 
@@ -21,6 +23,7 @@ public struct ChannelReturnRequest: Codable, Hashable {
     /** Optional. Is the MPN used as key for the product (default value is false). */
     public var keyIsMerchantProductNo: Bool?
     public var lines: [ChannelReturnLineRequest]
+    public var status: ChannelReturnStatus?
     /** The unique return reference used by ChannelEngine. */
     public var id: Int?
     public var reason: ReturnReason?
@@ -35,13 +38,14 @@ public struct ChannelReturnRequest: Codable, Hashable {
     /** The date at which the return was originally created in the source system (if available). */
     public var returnDate: Date?
 
-    public init(channelOrderNo: String? = nil, merchantOrderNo: String? = nil, channelReference: String, keyIsMerchantOrderNo: Bool? = nil, keyIsMerchantProductNo: Bool? = nil, lines: [ChannelReturnLineRequest], id: Int? = nil, reason: ReturnReason? = nil, customerComment: String? = nil, merchantComment: String? = nil, refundInclVat: Double? = nil, refundExclVat: Double? = nil, returnDate: Date? = nil) {
+    public init(channelOrderNo: String? = nil, merchantOrderNo: String? = nil, channelReference: String, keyIsMerchantOrderNo: Bool? = nil, keyIsMerchantProductNo: Bool? = nil, lines: [ChannelReturnLineRequest], status: ChannelReturnStatus? = nil, id: Int? = nil, reason: ReturnReason? = nil, customerComment: String? = nil, merchantComment: String? = nil, refundInclVat: Double? = nil, refundExclVat: Double? = nil, returnDate: Date? = nil) {
         self.channelOrderNo = channelOrderNo
         self.merchantOrderNo = merchantOrderNo
         self.channelReference = channelReference
         self.keyIsMerchantOrderNo = keyIsMerchantOrderNo
         self.keyIsMerchantProductNo = keyIsMerchantProductNo
         self.lines = lines
+        self.status = status
         self.id = id
         self.reason = reason
         self.customerComment = customerComment
@@ -50,6 +54,7 @@ public struct ChannelReturnRequest: Codable, Hashable {
         self.refundExclVat = refundExclVat
         self.returnDate = returnDate
     }
+
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case channelOrderNo = "ChannelOrderNo"
         case merchantOrderNo = "MerchantOrderNo"
@@ -57,6 +62,7 @@ public struct ChannelReturnRequest: Codable, Hashable {
         case keyIsMerchantOrderNo = "KeyIsMerchantOrderNo"
         case keyIsMerchantProductNo = "KeyIsMerchantProductNo"
         case lines = "Lines"
+        case status = "Status"
         case id = "Id"
         case reason = "Reason"
         case customerComment = "CustomerComment"
@@ -76,6 +82,7 @@ public struct ChannelReturnRequest: Codable, Hashable {
         try container.encodeIfPresent(keyIsMerchantOrderNo, forKey: .keyIsMerchantOrderNo)
         try container.encodeIfPresent(keyIsMerchantProductNo, forKey: .keyIsMerchantProductNo)
         try container.encode(lines, forKey: .lines)
+        try container.encodeIfPresent(status, forKey: .status)
         try container.encodeIfPresent(id, forKey: .id)
         try container.encodeIfPresent(reason, forKey: .reason)
         try container.encodeIfPresent(customerComment, forKey: .customerComment)
@@ -84,7 +91,5 @@ public struct ChannelReturnRequest: Codable, Hashable {
         try container.encodeIfPresent(refundExclVat, forKey: .refundExclVat)
         try container.encodeIfPresent(returnDate, forKey: .returnDate)
     }
-
-
-
 }
+

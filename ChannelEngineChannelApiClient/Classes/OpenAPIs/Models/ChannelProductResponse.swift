@@ -6,18 +6,23 @@
 //
 
 import Foundation
+#if canImport(AnyCodable)
 import AnyCodable
+#endif
 
 public struct ChannelProductResponse: Codable, Hashable {
 
-    /** An unique identifier which ChannelEngine uses to identify the product.  Needed in the call &#39;POST /v2/products/data&#39;. */
+    /** An unique identifier which ChannelEngine uses to identify the product.  Needed in the call 'POST /v2/products/data'. */
     public var id: Int?
+    /** The unique product reference used by the Channel for the product. */
+    public var channelProductNo: String?
     /** The unique product reference used by the Channel for the parent product. */
     public var parentChannelProductNo: String?
     /** The unique product reference used by the Channel for the grandparent product. */
     public var grandparentChannelProductNo: String?
     /** A channel can require certain fields to be available. The channel  can provide ChannelEngine with this fields after which the merchants  will be able to fill in this field using custom conditions in ChannelEngine. */
     public var mappedFields: [String: String]?
+    public var productType: ProductType?
     /** An optional list of key-value pairs containing  extra data about this product. This data can be  sent to channels or used for filtering products. */
     public var extraData: [ChannelProductExtraDataItemResponse]?
     /** The name of the product. */
@@ -40,16 +45,16 @@ public struct ChannelProductResponse: Codable, Hashable {
     public var stock: Int?
     /** Price, including VAT. */
     public var price: Double?
-    /** Manufacturer&#39;s suggested retail price. */
+    /** Manufacturer's suggested retail price. */
     public var MSRP: Double?
     /** Optional. The purchase price of the product. Useful for repricing. */
     public var purchasePrice: Double?
     public var vatRateType: VatRateType?
     /** Shipping cost of the product. */
     public var shippingCost: Double?
-    /** A textual representation of the shippingtime.  For example, in Dutch: &#39;Op werkdagen voor 22:00 uur besteld, morgen in huis&#39;. */
+    /** A textual representation of the shippingtime.  For example, in Dutch: 'Op werkdagen voor 22:00 uur besteld, morgen in huis'. */
     public var shippingTime: String?
-    /** A URL pointing to the merchant&#39;s webpage  which displays this product. */
+    /** A URL pointing to the merchant's webpage  which displays this product. */
     public var url: String?
     /** A URL at which an image of this product  can be found. */
     public var imageUrl: String?
@@ -71,14 +76,16 @@ public struct ChannelProductResponse: Codable, Hashable {
     public var extraImageUrl8: String?
     /** Url to an additional image of product (9). */
     public var extraImageUrl9: String?
-    /** The category to which this product belongs.  Please supply this field in the following format:  &#39;maincategory &gt; category &gt; subcategory&#39;  For example:  &#39;vehicles &gt; bikes &gt; mountainbike&#39;. */
+    /** The category to which this product belongs.  Please supply this field in the following format:  'maincategory > category > subcategory'  For example:  'vehicles > bikes > mountainbike'. */
     public var categoryTrail: String?
 
-    public init(id: Int? = nil, parentChannelProductNo: String? = nil, grandparentChannelProductNo: String? = nil, mappedFields: [String: String]? = nil, extraData: [ChannelProductExtraDataItemResponse]? = nil, name: String? = nil, description: String? = nil, brand: String? = nil, size: String? = nil, color: String? = nil, ean: String? = nil, manufacturerProductNumber: String? = nil, merchantProductNo: String, stock: Int? = nil, price: Double? = nil, MSRP: Double? = nil, purchasePrice: Double? = nil, vatRateType: VatRateType? = nil, shippingCost: Double? = nil, shippingTime: String? = nil, url: String? = nil, imageUrl: String? = nil, extraImageUrl1: String? = nil, extraImageUrl2: String? = nil, extraImageUrl3: String? = nil, extraImageUrl4: String? = nil, extraImageUrl5: String? = nil, extraImageUrl6: String? = nil, extraImageUrl7: String? = nil, extraImageUrl8: String? = nil, extraImageUrl9: String? = nil, categoryTrail: String? = nil) {
+    public init(id: Int? = nil, channelProductNo: String? = nil, parentChannelProductNo: String? = nil, grandparentChannelProductNo: String? = nil, mappedFields: [String: String]? = nil, productType: ProductType? = nil, extraData: [ChannelProductExtraDataItemResponse]? = nil, name: String? = nil, description: String? = nil, brand: String? = nil, size: String? = nil, color: String? = nil, ean: String? = nil, manufacturerProductNumber: String? = nil, merchantProductNo: String, stock: Int? = nil, price: Double? = nil, MSRP: Double? = nil, purchasePrice: Double? = nil, vatRateType: VatRateType? = nil, shippingCost: Double? = nil, shippingTime: String? = nil, url: String? = nil, imageUrl: String? = nil, extraImageUrl1: String? = nil, extraImageUrl2: String? = nil, extraImageUrl3: String? = nil, extraImageUrl4: String? = nil, extraImageUrl5: String? = nil, extraImageUrl6: String? = nil, extraImageUrl7: String? = nil, extraImageUrl8: String? = nil, extraImageUrl9: String? = nil, categoryTrail: String? = nil) {
         self.id = id
+        self.channelProductNo = channelProductNo
         self.parentChannelProductNo = parentChannelProductNo
         self.grandparentChannelProductNo = grandparentChannelProductNo
         self.mappedFields = mappedFields
+        self.productType = productType
         self.extraData = extraData
         self.name = name
         self.description = description
@@ -108,11 +115,14 @@ public struct ChannelProductResponse: Codable, Hashable {
         self.extraImageUrl9 = extraImageUrl9
         self.categoryTrail = categoryTrail
     }
+
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case id = "Id"
+        case channelProductNo = "ChannelProductNo"
         case parentChannelProductNo = "ParentChannelProductNo"
         case grandparentChannelProductNo = "GrandparentChannelProductNo"
         case mappedFields = "MappedFields"
+        case productType = "ProductType"
         case extraData = "ExtraData"
         case name = "Name"
         case description = "Description"
@@ -148,9 +158,11 @@ public struct ChannelProductResponse: Codable, Hashable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(id, forKey: .id)
+        try container.encodeIfPresent(channelProductNo, forKey: .channelProductNo)
         try container.encodeIfPresent(parentChannelProductNo, forKey: .parentChannelProductNo)
         try container.encodeIfPresent(grandparentChannelProductNo, forKey: .grandparentChannelProductNo)
         try container.encodeIfPresent(mappedFields, forKey: .mappedFields)
+        try container.encodeIfPresent(productType, forKey: .productType)
         try container.encodeIfPresent(extraData, forKey: .extraData)
         try container.encodeIfPresent(name, forKey: .name)
         try container.encodeIfPresent(description, forKey: .description)
@@ -180,7 +192,5 @@ public struct ChannelProductResponse: Codable, Hashable {
         try container.encodeIfPresent(extraImageUrl9, forKey: .extraImageUrl9)
         try container.encodeIfPresent(categoryTrail, forKey: .categoryTrail)
     }
-
-
-
 }
+

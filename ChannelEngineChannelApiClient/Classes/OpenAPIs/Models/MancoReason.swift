@@ -6,7 +6,9 @@
 //
 
 import Foundation
+#if canImport(AnyCodable)
 import AnyCodable
+#endif
 
 public enum MancoReason: String, Codable, CaseIterable {
     case notInStock = "NOT_IN_STOCK"

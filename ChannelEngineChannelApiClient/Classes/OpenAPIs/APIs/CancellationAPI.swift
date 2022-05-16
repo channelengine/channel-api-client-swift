@@ -6,8 +6,12 @@
 //
 
 import Foundation
+#if canImport(AnyCodable)
+import AnyCodable
+#endif
 
 open class CancellationAPI {
+
     /**
      Get Cancellations.
      
@@ -16,7 +20,7 @@ open class CancellationAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     open class func cancellationIndex(createdSince: Date? = nil, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: CollectionOfChannelCancellationResponse?, _ error: Error?) -> Void)) {
-        cancellationIndexWithRequestBuilder(createdSince: createdSince).execute(apiResponseQueue) { result -> Void in
+        cancellationIndexWithRequestBuilder(createdSince: createdSince).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -37,24 +41,23 @@ open class CancellationAPI {
      - returns: RequestBuilder<CollectionOfChannelCancellationResponse> 
      */
     open class func cancellationIndexWithRequestBuilder(createdSince: Date? = nil) -> RequestBuilder<CollectionOfChannelCancellationResponse> {
-        let path = "/v2/cancellations"
-        let URLString = ChannelEngineChannelApiClientAPI.basePath + path
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/v2/cancellations"
+        let localVariableURLString = ChannelEngineChannelApiClientAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "createdSince": createdSince?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<CollectionOfChannelCancellationResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<CollectionOfChannelCancellationResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
-
 }

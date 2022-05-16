@@ -6,7 +6,9 @@
 //
 
 import Foundation
+#if canImport(AnyCodable)
 import AnyCodable
+#endif
 
 public struct ChannelCancellationResponse: Codable, Hashable {
 
@@ -29,6 +31,7 @@ public struct ChannelCancellationResponse: Codable, Hashable {
         self.reason = reason
         self.reasonCode = reasonCode
     }
+
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case channelOrderNo = "ChannelOrderNo"
         case lines = "Lines"
@@ -49,7 +52,5 @@ public struct ChannelCancellationResponse: Codable, Hashable {
         try container.encodeIfPresent(reason, forKey: .reason)
         try container.encodeIfPresent(reasonCode, forKey: .reasonCode)
     }
-
-
-
 }
+

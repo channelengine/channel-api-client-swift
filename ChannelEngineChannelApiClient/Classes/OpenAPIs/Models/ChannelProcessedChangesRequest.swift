@@ -6,7 +6,9 @@
 //
 
 import Foundation
+#if canImport(AnyCodable)
 import AnyCodable
+#endif
 
 public struct ChannelProcessedChangesRequest: Codable, Hashable {
 
@@ -22,6 +24,7 @@ public struct ChannelProcessedChangesRequest: Codable, Hashable {
         self.updated = updated
         self.removed = removed
     }
+
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case created = "Created"
         case updated = "Updated"
@@ -36,7 +39,5 @@ public struct ChannelProcessedChangesRequest: Codable, Hashable {
         try container.encodeIfPresent(updated, forKey: .updated)
         try container.encodeIfPresent(removed, forKey: .removed)
     }
-
-
-
 }
+

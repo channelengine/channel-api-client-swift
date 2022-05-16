@@ -6,7 +6,9 @@
 //
 
 import Foundation
+#if canImport(AnyCodable)
 import AnyCodable
+#endif
 
 public struct ChannelOrderRequest: Codable, Hashable {
 
@@ -20,19 +22,19 @@ public struct ChannelOrderRequest: Codable, Hashable {
     public var keyIsMerchantProductNo: Bool?
     /** The order lines. */
     public var lines: [ChannelOrderLineRequest]
-    /** The customer&#39;s telephone number. */
+    /** The customer's telephone number. */
     public var phone: String?
-    /** The customer&#39;s email. */
+    /** The customer's email. */
     public var email: String
-    /** Optional. A company&#39;s chamber of commerce number. */
+    /** Optional. A company's chamber of commerce number. */
     public var companyRegistrationNo: String?
-    /** Optional. A company&#39;s VAT number. */
+    /** Optional. A company's VAT number. */
     public var vatNo: String?
     /** The payment method used on the order. */
     public var paymentMethod: String?
     /** Reference or transaction id for the payment */
     public var paymentReferenceNo: String?
-    /** The shipping fee including VAT  (in the shop&#39;s base currency calculated using the exchange rate at the time of ordering). */
+    /** The shipping fee including VAT  (in the shop's base currency calculated using the exchange rate at the time of ordering). */
     public var shippingCostsInclVat: Double
     /** The currency code for the amounts of the order. */
     public var currencyCode: String
@@ -62,6 +64,7 @@ public struct ChannelOrderRequest: Codable, Hashable {
         self.channelCustomerNo = channelCustomerNo
         self.extraData = extraData
     }
+
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case billingAddress = "BillingAddress"
         case shippingAddress = "ShippingAddress"
@@ -104,7 +107,5 @@ public struct ChannelOrderRequest: Codable, Hashable {
         try container.encodeIfPresent(channelCustomerNo, forKey: .channelCustomerNo)
         try container.encodeIfPresent(extraData, forKey: .extraData)
     }
-
-
-
 }
+

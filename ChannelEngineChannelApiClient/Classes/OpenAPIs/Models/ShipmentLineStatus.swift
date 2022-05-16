@@ -6,7 +6,9 @@
 //
 
 import Foundation
+#if canImport(AnyCodable)
 import AnyCodable
+#endif
 
 public enum ShipmentLineStatus: String, Codable, CaseIterable {
     case shipped = "SHIPPED"

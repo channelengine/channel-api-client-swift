@@ -6,7 +6,9 @@
 //
 
 import Foundation
+#if canImport(AnyCodable)
 import AnyCodable
+#endif
 
 public struct ChannelProductReferencesRequest: Codable, Hashable {
 
@@ -19,6 +21,7 @@ public struct ChannelProductReferencesRequest: Codable, Hashable {
         self.id = id
         self.channelProductNo = channelProductNo
     }
+
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case id = "Id"
         case channelProductNo = "ChannelProductNo"
@@ -31,7 +34,5 @@ public struct ChannelProductReferencesRequest: Codable, Hashable {
         try container.encodeIfPresent(id, forKey: .id)
         try container.encode(channelProductNo, forKey: .channelProductNo)
     }
-
-
-
 }
+

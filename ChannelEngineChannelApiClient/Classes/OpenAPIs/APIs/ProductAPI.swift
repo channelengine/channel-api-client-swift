@@ -6,8 +6,12 @@
 //
 
 import Foundation
+#if canImport(AnyCodable)
+import AnyCodable
+#endif
 
 open class ProductAPI {
+
     /**
      Acknowledge Product Data Changes.
      
@@ -16,7 +20,7 @@ open class ProductAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     open class func productAcknowledgeDataChanges(channelProcessedChangesRequest: ChannelProcessedChangesRequest? = nil, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: ApiResponse?, _ error: Error?) -> Void)) {
-        productAcknowledgeDataChangesWithRequestBuilder(channelProcessedChangesRequest: channelProcessedChangesRequest).execute(apiResponseQueue) { result -> Void in
+        productAcknowledgeDataChangesWithRequestBuilder(channelProcessedChangesRequest: channelProcessedChangesRequest).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -37,21 +41,21 @@ open class ProductAPI {
      - returns: RequestBuilder<ApiResponse> 
      */
     open class func productAcknowledgeDataChangesWithRequestBuilder(channelProcessedChangesRequest: ChannelProcessedChangesRequest? = nil) -> RequestBuilder<ApiResponse> {
-        let path = "/v2/products/data"
-        let URLString = ChannelEngineChannelApiClientAPI.basePath + path
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: channelProcessedChangesRequest)
+        let localVariablePath = "/v2/products/data"
+        let localVariableURLString = ChannelEngineChannelApiClientAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: channelProcessedChangesRequest)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<ApiResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<ApiResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -63,7 +67,7 @@ open class ProductAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     open class func productAcknowledgeOfferChanges(keyIsMpn: Bool? = nil, requestBody: [String]? = nil, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: ApiResponse?, _ error: Error?) -> Void)) {
-        productAcknowledgeOfferChangesWithRequestBuilder(keyIsMpn: keyIsMpn, requestBody: requestBody).execute(apiResponseQueue) { result -> Void in
+        productAcknowledgeOfferChangesWithRequestBuilder(keyIsMpn: keyIsMpn, requestBody: requestBody).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -85,24 +89,24 @@ open class ProductAPI {
      - returns: RequestBuilder<ApiResponse> 
      */
     open class func productAcknowledgeOfferChangesWithRequestBuilder(keyIsMpn: Bool? = nil, requestBody: [String]? = nil) -> RequestBuilder<ApiResponse> {
-        let path = "/v2/products/offers"
-        let URLString = ChannelEngineChannelApiClientAPI.basePath + path
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: requestBody)
+        let localVariablePath = "/v2/products/offers"
+        let localVariableURLString = ChannelEngineChannelApiClientAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: requestBody)
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "keyIsMpn": keyIsMpn?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<ApiResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<ApiResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -115,8 +119,8 @@ open class ProductAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func productGetDataChanges(maxCount: Int? = nil, stripHtml: Bool? = nil, page: Int? = nil, pageSize: Int? = nil, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: SingleOfChannelProductChangesResponse?, _ error: Error?) -> Void)) {
-        productGetDataChangesWithRequestBuilder(maxCount: maxCount, stripHtml: stripHtml, page: page, pageSize: pageSize).execute(apiResponseQueue) { result -> Void in
+    open class func productGetDataChanges(maxCount: Int? = nil, stripHtml: Bool? = nil, page: Int? = nil, pageSize: Int? = nil, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: CollectionChangesOfChannelProductChangesResponse?, _ error: Error?) -> Void)) {
+        productGetDataChangesWithRequestBuilder(maxCount: maxCount, stripHtml: stripHtml, page: page, pageSize: pageSize).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -137,30 +141,30 @@ open class ProductAPI {
      - parameter stripHtml: (query) Optional - strips html by default on all fields (optional, default to true)
      - parameter page: (query)  (optional)
      - parameter pageSize: (query)  (optional)
-     - returns: RequestBuilder<SingleOfChannelProductChangesResponse> 
+     - returns: RequestBuilder<CollectionChangesOfChannelProductChangesResponse> 
      */
-    open class func productGetDataChangesWithRequestBuilder(maxCount: Int? = nil, stripHtml: Bool? = nil, page: Int? = nil, pageSize: Int? = nil) -> RequestBuilder<SingleOfChannelProductChangesResponse> {
-        let path = "/v2/products/data"
-        let URLString = ChannelEngineChannelApiClientAPI.basePath + path
-        let parameters: [String: Any]? = nil
+    open class func productGetDataChangesWithRequestBuilder(maxCount: Int? = nil, stripHtml: Bool? = nil, page: Int? = nil, pageSize: Int? = nil) -> RequestBuilder<CollectionChangesOfChannelProductChangesResponse> {
+        let localVariablePath = "/v2/products/data"
+        let localVariableURLString = ChannelEngineChannelApiClientAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "maxCount": maxCount?.encodeToJSON(),
             "stripHtml": stripHtml?.encodeToJSON(),
             "page": page?.encodeToJSON(),
             "pageSize": pageSize?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<SingleOfChannelProductChangesResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<CollectionChangesOfChannelProductChangesResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -169,11 +173,13 @@ open class ProductAPI {
      - parameter productType: (query) Optional - Type of products (optional)
      - parameter maxCount: (query) Optional - limit the amount of products returned for each field&lt;br /&gt; (ToBeCreated, ToBeUpdated, ToBeRemoved) to this number. (optional)
      - parameter stripHtml: (query) Optional - strips html by default on all fields (optional, default to true)
+     - parameter page: (query)  (optional)
+     - parameter pageSize: (query)  (optional)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func productGetDataChangesFull(productType: DataChangesProductType? = nil, maxCount: Int? = nil, stripHtml: Bool? = nil, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: SingleOfChannelProductChangesResponse?, _ error: Error?) -> Void)) {
-        productGetDataChangesFullWithRequestBuilder(productType: productType, maxCount: maxCount, stripHtml: stripHtml).execute(apiResponseQueue) { result -> Void in
+    open class func productGetDataChangesFull(productType: DataChangesProductType? = nil, maxCount: Int? = nil, stripHtml: Bool? = nil, page: Int? = nil, pageSize: Int? = nil, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: CollectionChangesOfChannelProductChangesResponse?, _ error: Error?) -> Void)) {
+        productGetDataChangesFullWithRequestBuilder(productType: productType, maxCount: maxCount, stripHtml: stripHtml, page: page, pageSize: pageSize).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -192,39 +198,45 @@ open class ProductAPI {
      - parameter productType: (query) Optional - Type of products (optional)
      - parameter maxCount: (query) Optional - limit the amount of products returned for each field&lt;br /&gt; (ToBeCreated, ToBeUpdated, ToBeRemoved) to this number. (optional)
      - parameter stripHtml: (query) Optional - strips html by default on all fields (optional, default to true)
-     - returns: RequestBuilder<SingleOfChannelProductChangesResponse> 
+     - parameter page: (query)  (optional)
+     - parameter pageSize: (query)  (optional)
+     - returns: RequestBuilder<CollectionChangesOfChannelProductChangesResponse> 
      */
-    open class func productGetDataChangesFullWithRequestBuilder(productType: DataChangesProductType? = nil, maxCount: Int? = nil, stripHtml: Bool? = nil) -> RequestBuilder<SingleOfChannelProductChangesResponse> {
-        let path = "/v2/products/data/full"
-        let URLString = ChannelEngineChannelApiClientAPI.basePath + path
-        let parameters: [String: Any]? = nil
+    open class func productGetDataChangesFullWithRequestBuilder(productType: DataChangesProductType? = nil, maxCount: Int? = nil, stripHtml: Bool? = nil, page: Int? = nil, pageSize: Int? = nil) -> RequestBuilder<CollectionChangesOfChannelProductChangesResponse> {
+        let localVariablePath = "/v2/products/data/full"
+        let localVariableURLString = ChannelEngineChannelApiClientAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "productType": productType?.encodeToJSON(),
             "maxCount": maxCount?.encodeToJSON(),
             "stripHtml": stripHtml?.encodeToJSON(),
+            "page": page?.encodeToJSON(),
+            "pageSize": pageSize?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<SingleOfChannelProductChangesResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<CollectionChangesOfChannelProductChangesResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Get Product Offer Changes.
      
+     - parameter page: (query)  (optional)
+     - parameter pageSize: (query)  (optional)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func productGetOfferChanges(apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: CollectionOfChannelOfferResponse?, _ error: Error?) -> Void)) {
-        productGetOfferChangesWithRequestBuilder().execute(apiResponseQueue) { result -> Void in
+    open class func productGetOfferChanges(page: Int? = nil, pageSize: Int? = nil, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: CollectionOfChannelOfferResponse?, _ error: Error?) -> Void)) {
+        productGetOfferChangesWithRequestBuilder(page: page, pageSize: pageSize).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -241,24 +253,29 @@ open class ProductAPI {
      - API Key:
        - type: apiKey apikey (QUERY)
        - name: apiKey
+     - parameter page: (query)  (optional)
+     - parameter pageSize: (query)  (optional)
      - returns: RequestBuilder<CollectionOfChannelOfferResponse> 
      */
-    open class func productGetOfferChangesWithRequestBuilder() -> RequestBuilder<CollectionOfChannelOfferResponse> {
-        let path = "/v2/products/offers"
-        let URLString = ChannelEngineChannelApiClientAPI.basePath + path
-        let parameters: [String: Any]? = nil
+    open class func productGetOfferChangesWithRequestBuilder(page: Int? = nil, pageSize: Int? = nil) -> RequestBuilder<CollectionOfChannelOfferResponse> {
+        let localVariablePath = "/v2/products/offers"
+        let localVariableURLString = ChannelEngineChannelApiClientAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "page": page?.encodeToJSON(),
+            "pageSize": pageSize?.encodeToJSON(),
+        ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<CollectionOfChannelOfferResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<CollectionOfChannelOfferResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
-
 }

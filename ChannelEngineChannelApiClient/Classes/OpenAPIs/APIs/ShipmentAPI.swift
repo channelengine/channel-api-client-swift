@@ -6,8 +6,12 @@
 //
 
 import Foundation
+#if canImport(AnyCodable)
+import AnyCodable
+#endif
 
 open class ShipmentAPI {
+
     /**
      Get Shipments.
      
@@ -19,7 +23,7 @@ open class ShipmentAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     open class func shipmentIndex(fromDate: Date? = nil, toDate: Date? = nil, channelOrderNos: [String]? = nil, page: Int? = nil, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: CollectionOfChannelShipmentResponse?, _ error: Error?) -> Void)) {
-        shipmentIndexWithRequestBuilder(fromDate: fromDate, toDate: toDate, channelOrderNos: channelOrderNos, page: page).execute(apiResponseQueue) { result -> Void in
+        shipmentIndexWithRequestBuilder(fromDate: fromDate, toDate: toDate, channelOrderNos: channelOrderNos, page: page).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -43,27 +47,27 @@ open class ShipmentAPI {
      - returns: RequestBuilder<CollectionOfChannelShipmentResponse> 
      */
     open class func shipmentIndexWithRequestBuilder(fromDate: Date? = nil, toDate: Date? = nil, channelOrderNos: [String]? = nil, page: Int? = nil) -> RequestBuilder<CollectionOfChannelShipmentResponse> {
-        let path = "/v2/shipments"
-        let URLString = ChannelEngineChannelApiClientAPI.basePath + path
-        let parameters: [String: Any]? = nil
+        let localVariablePath = "/v2/shipments"
+        let localVariableURLString = ChannelEngineChannelApiClientAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "fromDate": fromDate?.encodeToJSON(),
             "toDate": toDate?.encodeToJSON(),
             "channelOrderNos": channelOrderNos?.encodeToJSON(),
             "page": page?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<CollectionOfChannelShipmentResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<CollectionOfChannelShipmentResponse>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
@@ -74,7 +78,7 @@ open class ShipmentAPI {
      - parameter completion: completion handler to receive the data and the error objects
      */
     open class func shipmentShippingLabel(merchantShipmentNo: String, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: URL?, _ error: Error?) -> Void)) {
-        shipmentShippingLabelWithRequestBuilder(merchantShipmentNo: merchantShipmentNo).execute(apiResponseQueue) { result -> Void in
+        shipmentShippingLabelWithRequestBuilder(merchantShipmentNo: merchantShipmentNo).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -95,24 +99,23 @@ open class ShipmentAPI {
      - returns: RequestBuilder<URL> 
      */
     open class func shipmentShippingLabelWithRequestBuilder(merchantShipmentNo: String) -> RequestBuilder<URL> {
-        var path = "/v2/orders/{merchantShipmentNo}/shippinglabel"
+        var localVariablePath = "/v2/orders/{merchantShipmentNo}/shippinglabel"
         let merchantShipmentNoPreEscape = "\(APIHelper.mapValueToPathItem(merchantShipmentNo))"
         let merchantShipmentNoPostEscape = merchantShipmentNoPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        path = path.replacingOccurrences(of: "{merchantShipmentNo}", with: merchantShipmentNoPostEscape, options: .literal, range: nil)
-        let URLString = ChannelEngineChannelApiClientAPI.basePath + path
-        let parameters: [String: Any]? = nil
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{merchantShipmentNo}", with: merchantShipmentNoPostEscape, options: .literal, range: nil)
+        let localVariableURLString = ChannelEngineChannelApiClientAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<URL>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<URL>.Type = ChannelEngineChannelApiClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
-
 }

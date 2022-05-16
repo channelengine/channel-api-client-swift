@@ -6,7 +6,9 @@
 //
 
 import Foundation
+#if canImport(AnyCodable)
 import AnyCodable
+#endif
 
 public enum OrderStatusView: String, Codable, CaseIterable {
     case inProgress = "IN_PROGRESS"

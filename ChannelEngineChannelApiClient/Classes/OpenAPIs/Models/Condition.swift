@@ -6,7 +6,9 @@
 //
 
 import Foundation
+#if canImport(AnyCodable)
 import AnyCodable
+#endif
 
 public enum Condition: String, Codable, CaseIterable {
     case new = "NEW"
