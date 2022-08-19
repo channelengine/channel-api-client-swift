@@ -14,7 +14,7 @@ import Foundation
 public typealias ChannelEngineChannelApiClient = ChannelEngineChannelApiClientAPI
 
 open class ChannelEngineChannelApiClientAPI {
-    public static var basePath = "http://dev.channelengine.local/api"
+    public static var basePath = "https://demo.channelengine.net/api"
     public static var customHeaders: [String: String] = [:]
     public static var credential: URLCredential?
     public static var requestBuilderFactory: RequestBuilderFactory = URLSessionRequestBuilderFactory()

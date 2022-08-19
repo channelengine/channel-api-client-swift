@@ -65,12 +65,13 @@ open class ReturnAPI {
      - parameter reasons: (query) Return reason(s) to filter on. (optional)
      - parameter fromDate: (query) Filter on the creation date, starting from this date. This date is inclusive. (optional)
      - parameter toDate: (query) Filter on the creation date, until this date. This date is exclusive. (optional)
+     - parameter isAcknowledged: (query) Filters based on acknowledgements (optional)
      - parameter page: (query) The page to filter on. Starts at 1. (optional)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func returnGetDeclaredByMerchant(statuses: [ReturnStatus]? = nil, reasons: [ReturnReason]? = nil, fromDate: Date? = nil, toDate: Date? = nil, page: Int? = nil, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: CollectionOfChannelReturnResponse?, _ error: Error?) -> Void)) {
-        returnGetDeclaredByMerchantWithRequestBuilder(statuses: statuses, reasons: reasons, fromDate: fromDate, toDate: toDate, page: page).execute(apiResponseQueue) { result in
+    open class func returnGetDeclaredByMerchant(statuses: [ReturnStatus]? = nil, reasons: [ReturnReason]? = nil, fromDate: Date? = nil, toDate: Date? = nil, isAcknowledged: Bool? = nil, page: Int? = nil, apiResponseQueue: DispatchQueue = ChannelEngineChannelApiClientAPI.apiResponseQueue, completion: @escaping ((_ data: CollectionOfChannelReturnResponse?, _ error: Error?) -> Void)) {
+        returnGetDeclaredByMerchantWithRequestBuilder(statuses: statuses, reasons: reasons, fromDate: fromDate, toDate: toDate, isAcknowledged: isAcknowledged, page: page).execute(apiResponseQueue) { result in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -91,10 +92,11 @@ open class ReturnAPI {
      - parameter reasons: (query) Return reason(s) to filter on. (optional)
      - parameter fromDate: (query) Filter on the creation date, starting from this date. This date is inclusive. (optional)
      - parameter toDate: (query) Filter on the creation date, until this date. This date is exclusive. (optional)
+     - parameter isAcknowledged: (query) Filters based on acknowledgements (optional)
      - parameter page: (query) The page to filter on. Starts at 1. (optional)
      - returns: RequestBuilder<CollectionOfChannelReturnResponse> 
      */
-    open class func returnGetDeclaredByMerchantWithRequestBuilder(statuses: [ReturnStatus]? = nil, reasons: [ReturnReason]? = nil, fromDate: Date? = nil, toDate: Date? = nil, page: Int? = nil) -> RequestBuilder<CollectionOfChannelReturnResponse> {
+    open class func returnGetDeclaredByMerchantWithRequestBuilder(statuses: [ReturnStatus]? = nil, reasons: [ReturnReason]? = nil, fromDate: Date? = nil, toDate: Date? = nil, isAcknowledged: Bool? = nil, page: Int? = nil) -> RequestBuilder<CollectionOfChannelReturnResponse> {
         let localVariablePath = "/v2/returns/channel"
         let localVariableURLString = ChannelEngineChannelApiClientAPI.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
@@ -105,6 +107,7 @@ open class ReturnAPI {
             "reasons": reasons?.encodeToJSON(),
             "fromDate": fromDate?.encodeToJSON(),
             "toDate": toDate?.encodeToJSON(),
+            "isAcknowledged": isAcknowledged?.encodeToJSON(),
             "page": page?.encodeToJSON(),
         ])
 

@@ -24,8 +24,10 @@ public struct ChannelReturnLineResponse: Codable, Hashable {
     public var shipmentStatus: ShipmentLineStatus?
     /** Number of items of the product in this return. */
     public var quantity: Int
+    /** Extra data on the returnline. Each item must have an unqiue key */
+    public var extraData: [String: String]?
 
-    public init(channelProductNo: String, merchantProductNo: String? = nil, acceptedQuantity: Int? = nil, rejectedQuantity: Int? = nil, orderLine: ChannelOrderLineResponse? = nil, shipmentStatus: ShipmentLineStatus? = nil, quantity: Int) {
+    public init(channelProductNo: String, merchantProductNo: String? = nil, acceptedQuantity: Int? = nil, rejectedQuantity: Int? = nil, orderLine: ChannelOrderLineResponse? = nil, shipmentStatus: ShipmentLineStatus? = nil, quantity: Int, extraData: [String: String]? = nil) {
         self.channelProductNo = channelProductNo
         self.merchantProductNo = merchantProductNo
         self.acceptedQuantity = acceptedQuantity
@@ -33,6 +35,7 @@ public struct ChannelReturnLineResponse: Codable, Hashable {
         self.orderLine = orderLine
         self.shipmentStatus = shipmentStatus
         self.quantity = quantity
+        self.extraData = extraData
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -43,6 +46,7 @@ public struct ChannelReturnLineResponse: Codable, Hashable {
         case orderLine = "OrderLine"
         case shipmentStatus = "ShipmentStatus"
         case quantity = "Quantity"
+        case extraData = "ExtraData"
     }
 
     // Encodable protocol methods
@@ -56,6 +60,7 @@ public struct ChannelReturnLineResponse: Codable, Hashable {
         try container.encodeIfPresent(orderLine, forKey: .orderLine)
         try container.encodeIfPresent(shipmentStatus, forKey: .shipmentStatus)
         try container.encode(quantity, forKey: .quantity)
+        try container.encodeIfPresent(extraData, forKey: .extraData)
     }
 }
 

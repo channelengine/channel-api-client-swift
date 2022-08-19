@@ -13,14 +13,14 @@ import AnyCodable
 public struct ChannelProductExtraDataItemResponse: Codable, Hashable {
 
     /** Name of the extra data field. */
-    public var key: String?
+    public var key: String
     /** Value of the extra data field. */
     public var value: String?
     public var type: ExtraDataType?
     /** Add this field to the export of the product feed to the channel. */
     public var isPublic: Bool?
 
-    public init(key: String? = nil, value: String? = nil, type: ExtraDataType? = nil, isPublic: Bool? = nil) {
+    public init(key: String, value: String? = nil, type: ExtraDataType? = nil, isPublic: Bool? = nil) {
         self.key = key
         self.value = value
         self.type = type
@@ -38,7 +38,7 @@ public struct ChannelProductExtraDataItemResponse: Codable, Hashable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encodeIfPresent(key, forKey: .key)
+        try container.encode(key, forKey: .key)
         try container.encodeIfPresent(value, forKey: .value)
         try container.encodeIfPresent(type, forKey: .type)
         try container.encodeIfPresent(isPublic, forKey: .isPublic)

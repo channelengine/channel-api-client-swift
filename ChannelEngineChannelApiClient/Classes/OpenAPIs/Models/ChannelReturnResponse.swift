@@ -36,8 +36,10 @@ public struct ChannelReturnResponse: Codable, Hashable {
     public var refundExclVat: Double?
     /** The date at which the return was originally created in the source system (if available). */
     public var returnDate: Date?
+    /** Extra data on the return. Each item must have an unqiue key */
+    public var extraData: [String: String]?
 
-    public init(channelReturnNo: String, channelOrderNo: String, merchantOrderNo: String? = nil, lines: [ChannelReturnLineResponse], createdAt: Date? = nil, updatedAt: Date? = nil, id: Int? = nil, reason: ReturnReason? = nil, customerComment: String? = nil, merchantComment: String? = nil, refundInclVat: Double? = nil, refundExclVat: Double? = nil, returnDate: Date? = nil) {
+    public init(channelReturnNo: String, channelOrderNo: String, merchantOrderNo: String? = nil, lines: [ChannelReturnLineResponse], createdAt: Date? = nil, updatedAt: Date? = nil, id: Int? = nil, reason: ReturnReason? = nil, customerComment: String? = nil, merchantComment: String? = nil, refundInclVat: Double? = nil, refundExclVat: Double? = nil, returnDate: Date? = nil, extraData: [String: String]? = nil) {
         self.channelReturnNo = channelReturnNo
         self.channelOrderNo = channelOrderNo
         self.merchantOrderNo = merchantOrderNo
@@ -51,6 +53,7 @@ public struct ChannelReturnResponse: Codable, Hashable {
         self.refundInclVat = refundInclVat
         self.refundExclVat = refundExclVat
         self.returnDate = returnDate
+        self.extraData = extraData
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -67,6 +70,7 @@ public struct ChannelReturnResponse: Codable, Hashable {
         case refundInclVat = "RefundInclVat"
         case refundExclVat = "RefundExclVat"
         case returnDate = "ReturnDate"
+        case extraData = "ExtraData"
     }
 
     // Encodable protocol methods
@@ -86,6 +90,7 @@ public struct ChannelReturnResponse: Codable, Hashable {
         try container.encodeIfPresent(refundInclVat, forKey: .refundInclVat)
         try container.encodeIfPresent(refundExclVat, forKey: .refundExclVat)
         try container.encodeIfPresent(returnDate, forKey: .returnDate)
+        try container.encodeIfPresent(extraData, forKey: .extraData)
     }
 }
 
